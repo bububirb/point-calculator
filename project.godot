@@ -11,11 +11,15 @@ config_version=5
 [application]
 
 config/name="Point Calculator"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/sessions_list.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
 boot_splash/image="res://assets/icons/splash.png"
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://scripts/globals.gd"
 
 [display]
 

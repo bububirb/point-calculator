@@ -1,0 +1,253 @@
+[gd_scene load_steps=9 format=3 uid="uid://djlsdndxjb2j8"]
+
+[ext_resource type="Script" path="res://scripts/sessions_list.gd" id="1_r8eag"]
+[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="1_v0d12"]
+[ext_resource type="Texture2D" uid="uid://dnjgqvda0meok" path="res://assets/icons/players_small.svg" id="2_h7gu0"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="2_rt865"]
+[ext_resource type="Texture2D" uid="uid://cj1sy2rqm7ik5" path="res://assets/icons/open.svg" id="4_k7mh5"]
+[ext_resource type="PackedScene" uid="uid://cl2ianka1guo4" path="res://scenes/global_player_list.tscn" id="6_kattf"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_lrhji"]
+color = Color(1, 1, 1, 0.4)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5c8o"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.16, 0.16, 0.16, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[node name="SessionsList" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r8eag")
+
+[node name="Margin" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBar" type="Control" parent="Margin/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="TitleBarContainer" type="HBoxContainer" parent="Margin/VBoxContainer/TitleBar"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayersButton" type="Button" parent="Margin/VBoxContainer/TitleBar/TitleBarContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Players"
+icon = ExtResource("2_h7gu0")
+
+[node name="TitleLabel" type="Label" parent="Margin/VBoxContainer/TitleBar/TitleBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_v0d12")
+text = "Sessions"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/TitleBar/TitleBarContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+
+[node name="SeparatorPanel" type="Panel" parent="Margin/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_lrhji")
+
+[node name="SessionOptions" type="Control" parent="Margin/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SessionOptionsContainer" type="VBoxContainer" parent="Margin/VBoxContainer/SessionOptions"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="CreateNewSessionLabel" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_v0d12")
+text = "Create New Session"
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r5c8o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Name: "
+vertical_alignment = 1
+
+[node name="SessionNameInput" type="LineEdit" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="SessionNamePreviewLabel" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+vertical_alignment = 1
+
+[node name="NewButton" type="Button" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+tooltip_text = "Create New Session"
+text = "Create"
+icon = ExtResource("2_rt865")
+
+[node name="OpenButton" type="Button" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+tooltip_text = "Open Existing Session"
+text = "Open"
+icon = ExtResource("4_k7mh5")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="SavedSessionsLabel" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_v0d12")
+text = "Saved Sessions"
+vertical_alignment = 1
+
+[node name="SessionCardsPanel" type="PanelContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_r5c8o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel"]
+layout_mode = 2
+
+[node name="TableLabels" type="HBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/TableLabels"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/TableLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_v0d12")
+text = "Name"
+
+[node name="DateLabel" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/TableLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_v0d12")
+text = "Date"
+
+[node name="PlayerCountLabel" type="Label" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/TableLabels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_v0d12")
+text = "Players"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/TableLabels"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_lrhji")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 2
+
+[node name="SessionCards" type="VBoxContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="GlobalPlayerList" parent="Margin/VBoxContainer" instance=ExtResource("6_kattf")]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0

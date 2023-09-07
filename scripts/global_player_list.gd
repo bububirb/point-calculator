@@ -13,7 +13,7 @@ var scores = {}
 @onready var cancel_button = $Panel/VBoxContainer/TitleBar/CancelButton
 @onready var save_button = $Panel/VBoxContainer/TitleBar/SaveButton
 @onready var player_item_list = $Panel/VBoxContainer/AdaptiveContainer/PlayerItemList
-@onready var session_graph = $Panel/VBoxContainer/AdaptiveContainer/SessionGraph
+#@onready var session_graph = $Panel/VBoxContainer/AdaptiveContainer/SessionGraph
 @onready var add_input = $Panel/VBoxContainer/PlayerListControls/AddInput
 @onready var add_button = $Panel/VBoxContainer/PlayerListControls/AddButton
 @onready var remove_button = $Panel/VBoxContainer/PlayerListControls/RemoveButton
@@ -50,8 +50,8 @@ func _on_add_button_pressed():
 		var id = hash(add_input.text)
 		if not get_ids_in_player_list().has(id):
 			player_item_list.add_item(add_input.text)
-			player_item_list.add_item("0")
-			session_graph.plot_point(0, add_input.text)
+			player_item_list.add_item("")
+			#session_graph.plot_point(0, add_input.text)
 			add_input.text = ""
 
 func _on_add_input_text_submitted(new_text):
@@ -59,8 +59,8 @@ func _on_add_input_text_submitted(new_text):
 		var id = hash(new_text)
 		if not get_ids_in_player_list().has(id):
 			player_item_list.add_item(new_text)
-			player_item_list.add_item("0")
-			session_graph.plot_point(0, new_text)
+			player_item_list.add_item("")
+			#session_graph.plot_point(0, new_text)
 			add_input.text = ""
 
 func _on_remove_button_pressed():
@@ -70,9 +70,9 @@ func _on_remove_button_pressed():
 		names.erase(hash(id))
 		player_item_list.remove_item(idx)
 		player_item_list.remove_item(idx)
-		session_graph.remove(idx / player_item_list.max_columns)
+		#session_graph.remove(idx / player_item_list.max_columns)
 		var new_selection_idx = idx
-		if new_selection_idx > player_item_list.item_count:
+		if new_selection_idx >= player_item_list.item_count:
 			new_selection_idx -= player_item_list.max_columns
 		if new_selection_idx >= 0:
 			player_item_list.select(new_selection_idx)
@@ -123,8 +123,8 @@ func load_player_stats():
 				if scores.has(id):
 					scores[id] = scores[id] + match_data.losing_scores[i]
 					match_scores[id] = match_data.losing_scores[i]
-		session_graph.clear()
-		session_graph.plot_set(scores.values(), names.values())
+		#session_graph.clear()
+		#session_graph.plot_set(scores.values(), names.values())
 #			scores_accumulated.append(scores.duplicate())
 #	print(scores_accumulated) # Todo: Session Graph
 
@@ -134,7 +134,7 @@ func load_player_item_list():
 	player_item_list.clear()
 	for i in names.keys():
 		player_item_list.add_item(names[i])
-		player_item_list.add_item(str(scores[i]))
+		player_item_list.add_item("") #str(scores[i])) # No scores loaded
 	for i in names.keys().size():
 		player_item_list.set_item_selectable(i * player_item_list.max_columns + 1, false)
 

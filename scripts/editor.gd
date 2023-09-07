@@ -3,8 +3,8 @@ extends Control
 signal cancel
 signal save
 
-const MATCH_DATA_PATH = "user://match_data/"
-const PLAYER_DATA_PATH = "user://player_data/"
+var MATCH_DATA_PATH : String
+var PLAYER_DATA_PATH : String
 
 var edit_index = 0
 
@@ -31,6 +31,9 @@ var player_names = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MATCH_DATA_PATH = Globals.CURRENT_SESSION_PATH + "match_data/"
+	PLAYER_DATA_PATH = Globals.SESSION_DATA_PATH #+ "player_data/" # Global player data refactor
+	
 	cancel_button.connect("pressed", _on_cancel_button_pressed)
 	save_button.connect("pressed", _on_save_button_pressed)
 	
@@ -157,7 +160,7 @@ func load_match_data():
 	var new = true
 	var dir = DirAccess.open(MATCH_DATA_PATH)
 	if not dir:
-		DirAccess.open("user://").make_dir("match_data")
+		DirAccess.open(Globals.CURRENT_SESSION_PATH).make_dir("match_data")
 		dir = DirAccess.open(MATCH_DATA_PATH)
 	var match_data : MatchData
 	if dir.file_exists("match_data_" + str(edit_index) + ".tres"):
@@ -195,8 +198,7 @@ func load_player_data():
 	var new = true
 	var dir = DirAccess.open(PLAYER_DATA_PATH)
 	if not dir:
-		DirAccess.open("user://").make_dir("player_data")
-		dir = DirAccess.open(PLAYER_DATA_PATH)
+		dir = DirAccess.open(Globals.SESSION_DATA_PATH) # Todo: Rewrite for proper handling of missing directories
 	var player_data : PlayerData
 	if dir.file_exists("player_data.tres"):
 		player_data = ResourceLoader.load(PLAYER_DATA_PATH + "player_data.tres")

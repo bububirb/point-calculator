@@ -189,6 +189,7 @@ custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "Edit"
 icon = ExtResource("5_cajly")
 icon_alignment = 1
 
@@ -197,6 +198,7 @@ custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "Delete"
 icon = ExtResource("5_4fl45")
 icon_alignment = 1
 
@@ -205,6 +207,7 @@ custom_minimum_size = Vector2(54, 112)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "Copy Scores"
 icon = ExtResource("4_qdor4")
 icon_alignment = 1
 
