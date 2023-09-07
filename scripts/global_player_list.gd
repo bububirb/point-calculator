@@ -8,15 +8,17 @@ var PLAYER_DATA_PATH : String
 
 var names = {}
 var scores = {}
-#var scores_accumulated = []
+var global_scores = {}
+var tally_function
 
 @onready var cancel_button = $Panel/VBoxContainer/TitleBar/CancelButton
 @onready var save_button = $Panel/VBoxContainer/TitleBar/SaveButton
 @onready var player_item_list = $Panel/VBoxContainer/AdaptiveContainer/PlayerItemList
-#@onready var session_graph = $Panel/VBoxContainer/AdaptiveContainer/SessionGraph
+@onready var session_graph = $Panel/VBoxContainer/AdaptiveContainer/ScrollContainer/SessionGraph
 @onready var add_input = $Panel/VBoxContainer/PlayerListControls/AddInput
 @onready var add_button = $Panel/VBoxContainer/PlayerListControls/AddButton
 @onready var remove_button = $Panel/VBoxContainer/PlayerListControls/RemoveButton
+@onready var tally_option_button = $Panel/VBoxContainer/TallyOptionsContainer/TallyOptionButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +30,7 @@ func _ready():
 	add_input.connect("text_submitted", _on_add_input_text_submitted)
 	add_button.connect("pressed", _on_add_button_pressed)
 	remove_button.connect("pressed", _on_remove_button_pressed)
+	tally_option_button.connect("item_selected", _on_tally_option_button_item_selected)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -38,44 +41,53 @@ func _on_cancel_button_pressed():
 
 func _on_save_button_pressed():
 	names = {}
-	for idx in player_item_list.item_count / player_item_list.max_columns:
-		var player_name = player_item_list.get_item_text(idx * player_item_list.max_columns)
-		names[hash(player_name)] = player_name
-		var player_score = int(player_item_list.get_item_text(idx * player_item_list.max_columns + 1))
-		scores[hash(player_name)] = player_score
-	emit_signal("save", names, scores)
+	for idx in player_item_list.item_count:
+		var player_name = player_item_list.get_player_name(idx)
+		names[player_name] = player_name
+		var player_score = player_item_list.get_global_score(idx)
+		scores[player_name] = player_score
+	emit_signal("save", names, scores, tally_function.get_method())
 
 func _on_add_button_pressed():
 	if add_input.text != "":
-		var id = hash(add_input.text)
+		var id = add_input.text
 		if not get_ids_in_player_list().has(id):
 			player_item_list.add_item(add_input.text)
-			player_item_list.add_item("")
-			#session_graph.plot_point(0, add_input.text)
+			session_graph.plot_point(0, add_input.text)
 			add_input.text = ""
 
 func _on_add_input_text_submitted(new_text):
 	if new_text != "":
-		var id = hash(new_text)
+		var id = new_text
 		if not get_ids_in_player_list().has(id):
 			player_item_list.add_item(new_text)
-			player_item_list.add_item("")
-			#session_graph.plot_point(0, new_text)
+			session_graph.plot_point(0, new_text)
 			add_input.text = ""
 
 func _on_remove_button_pressed():
 	for idx in player_item_list.get_selected_items():
-		var id = player_item_list.get_item_text(idx)
-		scores.erase(hash(id))
-		names.erase(hash(id))
+		var id = player_item_list.get_player_name(idx)
+		scores.erase(id)
+		names.erase(id)
 		player_item_list.remove_item(idx)
-		player_item_list.remove_item(idx)
-		#session_graph.remove(idx / player_item_list.max_columns)
+		session_graph.remove(idx)
 		var new_selection_idx = idx
 		if new_selection_idx >= player_item_list.item_count:
-			new_selection_idx -= player_item_list.max_columns
+			new_selection_idx -= 1
 		if new_selection_idx >= 0:
 			player_item_list.select(new_selection_idx)
+
+func _on_tally_option_button_item_selected(index):
+	tally_function = Tally.select_tally_option(index)
+	global_scores = Tally.tally_all_sessions()
+	update_player_item_list()
+	update_session_graph()
+
+func load_tally_options():
+	tally_option_button.clear()
+	for tally_option in Tally.tally_options:
+		tally_option_button.add_item(tally_option.get_method().capitalize())
+	tally_option_button.select(Tally.tally_options.find(tally_function))
 
 func load_player_data():
 	var dir = DirAccess.open(PLAYER_DATA_PATH)
@@ -88,6 +100,10 @@ func load_player_data():
 		player_data = ResourceLoader.load("res://resources/player_data/default_player_data.tres")
 	names = player_data.names
 	scores = player_data.scores
+	tally_function = Tally.get(player_data.tally_method)
+	if tally_function:
+		Tally.tally_function = tally_function
+	load_tally_options()
 
 func load_player_stats():
 	for key in scores.keys():
@@ -101,13 +117,14 @@ func load_player_stats():
 	if dir.file_exists("player_data.tres"):
 		player_data_exists = true
 		
-	dir = DirAccess.open(MATCH_DATA_PATH)
-	if not dir:
-		DirAccess.open(Globals.CURRENT_SESSION_PATH).make_dir("match_data")
-		dir = DirAccess.open(MATCH_DATA_PATH)
+#	dir = DirAccess.open(MATCH_DATA_PATH)
+#	if not dir:
+#		DirAccess.open(Globals.CURRENT_SESSION_PATH).make_dir("match_data")
+#		dir = DirAccess.open(MATCH_DATA_PATH)
 	var match_data : MatchData
 	
 	if player_data_exists:
+		# Tally local scores
 		for file in list_match_data():
 			var match_scores = {}
 			match_data = ResourceLoader.load(MATCH_DATA_PATH + file)
@@ -123,30 +140,37 @@ func load_player_stats():
 				if scores.has(id):
 					scores[id] = scores[id] + match_data.losing_scores[i]
 					match_scores[id] = match_data.losing_scores[i]
-		#session_graph.clear()
-		#session_graph.plot_set(scores.values(), names.values())
-#			scores_accumulated.append(scores.duplicate())
-#	print(scores_accumulated) # Todo: Session Graph
+		# Tally global scores
+		global_scores = Tally.tally_all_sessions()
+		update_session_graph()
 
 func load_player_item_list():
 	load_player_data()
 	load_player_stats()
+	update_player_item_list()
+
+func update_player_item_list():
 	player_item_list.clear()
 	for i in names.keys():
-		player_item_list.add_item(names[i])
-		player_item_list.add_item("") #str(scores[i])) # No scores loaded
-	for i in names.keys().size():
-		player_item_list.set_item_selectable(i * player_item_list.max_columns + 1, false)
+		player_item_list.add_item(names[i], scores[i], global_scores[i])
 
-func list_match_data():
+func update_session_graph():
+	session_graph.clear()
+	session_graph.plot_set(global_scores.values(), names.values())
+
+func list_match_data(session_name = null):
 	var saved_match_data = []
-	var dir = DirAccess.open(MATCH_DATA_PATH)
+	var dir
+	if not session_name:
+		dir = DirAccess.open(MATCH_DATA_PATH)
+	else:
+		dir = DirAccess.open(Globals.SESSION_DATA_PATH + session_name + "/match_data/")
 	if dir:
 		saved_match_data = dir.get_files()
 	return saved_match_data
 
 func get_ids_in_player_list():
 	var ids = []
-	for idx in player_item_list.item_count / player_item_list.max_columns:
-		ids.append(hash(player_item_list.get_item_text(idx * player_item_list.max_columns)))
+	for idx in player_item_list.item_count:
+		ids.append(player_item_list.get_player_name(idx))
 	return ids

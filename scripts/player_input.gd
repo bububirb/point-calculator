@@ -25,12 +25,12 @@ func _on_weight_input_text_changed(new_text):
 	emit_signal("weight_changed", get_index(), weight)
 
 func _on_player_option_item_selected(index):
-	var player_id = int(player_option.get_item_id(index))
+	var player_id = player_option.get_item_text(index)
 	emit_signal("player_changed", get_index(), player_id)
 
 func _on_player_reset_button_pressed():
-	var player_id = -1
-	player_option.select(player_id)
+	var player_id = ""
+	player_option.select(-1)
 	emit_signal("player_changed", get_index(), player_id)
 
 func set_weight(weight):
@@ -45,8 +45,8 @@ func set_score(score):
 func update_player_options(player_names, selection_id):
 	player_option.clear()
 	for player_name in player_names:
-		player_option.add_item(player_name, hash(player_name))
-	var selection = player_option.get_item_index(selection_id)
+		player_option.add_item(player_name)
+	var selection = player_names.find(selection_id)
 	if selection < player_option.item_count:
 		player_option.select(selection)
 	else:

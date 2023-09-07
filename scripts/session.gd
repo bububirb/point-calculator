@@ -38,6 +38,8 @@ func _ready():
 	
 	card_list.connect("card_edit", _on_card_list_card_edit)
 	card_list.connect("card_delete", _on_card_list_card_delete)
+	card_list.connect("card_move_up", _on_card_list_card_move_up)
+	card_list.connect("card_move_down", _on_card_list_card_move_down)
 	editor.connect("cancel", _on_editor_cancel)
 	editor.connect("save", _on_editor_save)
 	player_list.connect("cancel", _on_player_list_cancel)
@@ -66,9 +68,14 @@ func _on_card_list_card_edit(index):
 func _on_card_list_card_delete(index):
 	var saved_match_data = list_match_data()
 	if saved_match_data:
-		var dir = DirAccess.open(MATCH_DATA_PATH)
-		dir.remove(MATCH_DATA_PATH + saved_match_data[index])
+		OS.move_to_trash(ProjectSettings.globalize_path(MATCH_DATA_PATH + saved_match_data[index]))
 		reorder_match_data()
+
+func _on_card_list_card_move_up(index):
+	move_match_data(index, -1)
+
+func _on_card_list_card_move_down(index):
+	move_match_data(index, 1)
 
 func set_edit_index(index):
 	editor.edit_index = index
@@ -103,10 +110,11 @@ func load_data():
 func _on_player_list_cancel():
 	close_player_list()
 
-func _on_player_list_save(names, scores):
+func _on_player_list_save(names, scores, tally_function):
 	var player_data = PlayerData.new()
 	player_data.names = names
 	player_data.scores = scores
+	player_data.tally_method = tally_function
 	var dir = DirAccess.open(PLAYER_DATA_PATH)
 	if not dir:
 		dir = DirAccess.open(Globals.SESSION_DATA_PATH) # Todo: Rewrite for proper handling of missing directories
@@ -184,3 +192,13 @@ func reorder_match_data():
 	var saved_match_data = list_match_data()
 	for i in saved_match_data.size():
 		dir.rename(saved_match_data[i], "match_data_" + str(i) + ".tres")
+
+func move_match_data(index : int, offset : int):
+	var dir = DirAccess.open(MATCH_DATA_PATH)
+	var saved_match_data = list_match_data()
+	var list_size = list_match_data().size()
+	if index < list_size and index + offset < list_size and index >= 0 and index + offset >= 0:
+		var temp_name = "match_data_" + str(index + offset) + "_temp.tres"
+		dir.rename(saved_match_data[index + offset], temp_name)
+		dir.rename(saved_match_data[index], "match_data_" + str(index + offset) + ".tres")
+		dir.rename(temp_name, "match_data_" + str(index) + ".tres")

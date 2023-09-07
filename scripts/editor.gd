@@ -13,13 +13,13 @@ var quota = 100
 var winning_weights = [1.0, 1.0, 1.0, 1.0, 1.0]
 var winning_scores = [20, 20, 20, 20, 20]
 var winning_remainders = [0.0, 0.0, 0.0, 0.0, 0.0]
-var winning_player_ids = [-1, -1, -1, -1, -1]
+var winning_player_ids = ["", "", "", "", ""]
 
 var losing_weights = [1.0, 1.0, 1.0, 1.0, 1.0]
 var losing_weights_inverted = [1.0, 1.0, 1.0, 1.0, 1.0]
 var losing_scores = [-20, -20, -20, -20, -20]
 var losing_remainders = [0.0, 0.0, 0.0, 0.0, 0.0]
-var losing_player_ids = [-1, -1, -1, -1, -1]
+var losing_player_ids = ["", "", "", "", ""]
 
 var player_names = []
 
@@ -65,6 +65,14 @@ func _on_quota_input_text_changed(new_text):
 func set_quota(value):
 	quota = value
 	update_score()
+
+func get_player_options():
+	var player_options = []
+	for player_input in winning_player_inputs.get_children():
+		player_options.append(player_input.player_option)
+	for player_input in losing_player_inputs.get_children():
+		player_options.append(player_input.player_option)
+	return player_options
 
 func _on_winning_player_input_weight_changed(index, weight):
 	winning_weights[index] = weight
@@ -139,9 +147,9 @@ func update_losing_score():
 		var selected_index = 0
 		# Select score with the highest remainder
 		for j in losing_weights_inverted.size():
-			if losing_remainders[j] > highest_remainder:
-				highest_remainder = losing_remainders[j]
-				selected_index = j
+			if losing_remainders[losing_weights_inverted.size() - 1 - j] > highest_remainder:
+				highest_remainder = losing_remainders[losing_weights_inverted.size() - 1 - j]
+				selected_index = losing_weights_inverted.size() - 1 - j
 		# Adjust selected score
 		losing_scores[selected_index] -= 1
 		losing_remainders[selected_index] = 0 # Set remainder to 0 after adjustment

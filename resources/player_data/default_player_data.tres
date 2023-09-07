@@ -6,3 +6,4 @@
 script = ExtResource("1_fqvvn")
 names = {}
 scores = {}
+tally_method = "simple_sum"

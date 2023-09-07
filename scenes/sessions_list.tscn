@@ -81,8 +81,13 @@ text = "Sessions"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/TitleBar/TitleBarContainer"]
-custom_minimum_size = Vector2(96, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+
+[node name="ShowButton" type="Button" parent="Margin/VBoxContainer/TitleBar/TitleBarContainer"]
+layout_mode = 2
+tooltip_text = "Show Data Directory"
+icon = ExtResource("4_k7mh5")
 
 [node name="SeparatorPanel" type="Panel" parent="Margin/VBoxContainer"]
 visible = false
@@ -226,7 +231,7 @@ theme_override_fonts/font = ExtResource("1_v0d12")
 text = "Players"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer/TableLabels"]
-custom_minimum_size = Vector2(148, 0)
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="Margin/VBoxContainer/SessionOptions/SessionOptionsContainer/SessionCardsPanel/VBoxContainer"]
