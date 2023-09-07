@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd8trbqcnecci"]
+
+[ext_resource type="Script" path="res://scripts/player_entry.gd" id="1_a2n22"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c72n6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3242j"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.13, 0.13, 0.13, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn52r"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.17, 0.17, 0.17, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th2br"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.0901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[node name="PlayerEntry" type="Button"]
+custom_minimum_size = Vector2(0, 32)
+offset_right = 1024.0
+offset_bottom = 32.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c72n6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3242j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hn52r")
+script = ExtResource("1_a2n22")
+
+[node name="SelectionDraw" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_th2br")
+
+[node name="Labels" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerNameLabel" type="Label" parent="Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Player"
+vertical_alignment = 1
+
+[node name="LocalScoreLabel" type="Label" parent="Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+vertical_alignment = 1
+
+[node name="GlobalScoreLabel" type="Label" parent="Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+vertical_alignment = 1

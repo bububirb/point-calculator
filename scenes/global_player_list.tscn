@@ -7,18 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="5_i8jph"]
 [ext_resource type="Script" path="res://scripts/adaptive_container.gd" id="6_l0qgs"]
 [ext_resource type="PackedScene" uid="uid://c3vos5s0k8kwk" path="res://scenes/session_graph.tscn" id="7_1cd0o"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n68dr"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.07, 0.07, 0.07, 0.6)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-corner_detail = 5
+[ext_resource type="PackedScene" uid="uid://dhp1adm7e5rtp" path="res://scenes/player_item_list.tscn" id="7_1fibt"]
 
 [node name="GlobalPlayerList" type="Control"]
 layout_mode = 3
@@ -98,23 +87,58 @@ layout_mode = 2
 text = "Remove"
 icon = ExtResource("5_i8jph")
 
+[node name="TallyOptionsContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="TallyOptionLabel" type="Label" parent="Panel/VBoxContainer/TallyOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Tallying Method:"
+vertical_alignment = 1
+
+[node name="TallyOptionButton" type="OptionButton" parent="Panel/VBoxContainer/TallyOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MinimumScoreContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="MinimumScoreLabel" type="Label" parent="Panel/VBoxContainer/MinimumScoreContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Minimum Score:"
+vertical_alignment = 1
+
+[node name="MinimumScoreLineEdit" type="LineEdit" parent="Panel/VBoxContainer/MinimumScoreContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "100"
+
 [node name="AdaptiveContainer" type="BoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 8
 vertical = true
 script = ExtResource("6_l0qgs")
 ratio = 1.2
 
-[node name="PlayerItemList" type="ItemList" parent="Panel/VBoxContainer/AdaptiveContainer"]
-custom_minimum_size = Vector2(304, 0)
+[node name="PlayerItemList" parent="Panel/VBoxContainer/AdaptiveContainer" instance=ExtResource("7_1fibt")]
+custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_n68dr")
-max_columns = 2
-same_column_width = true
-fixed_column_width = 144
+show_local_scores = false
+show_global_scores = true
 
-[node name="SessionGraph" parent="Panel/VBoxContainer/AdaptiveContainer" instance=ExtResource("7_1cd0o")]
-visible = false
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/AdaptiveContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SessionGraph" parent="Panel/VBoxContainer/AdaptiveContainer/ScrollContainer" instance=ExtResource("7_1cd0o")]
 layout_mode = 2
 size_flags_horizontal = 3
