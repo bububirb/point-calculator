@@ -13,13 +13,16 @@ config_version=5
 config/name="Point Calculator"
 run/main_scene="res://scenes/sessions_list.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
+run/low_processor_mode=true
 boot_splash/bg_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
 boot_splash/image="res://assets/icons/splash.png"
 config/icon="res://icon.svg"
+config/windows_native_icon="res://assets/icons/windows-icons/icon-windows.ico"
 
 [autoload]
 
 Globals="*res://scripts/globals.gd"
+Tally="*res://scripts/tally.gd"
 
 [display]
 
@@ -38,4 +41,4 @@ theme/custom_font="res://resources/fonts/roboto_regular.ttf"
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.07, 0.07, 0.07, 1)
+environment/defaults/default_clear_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
