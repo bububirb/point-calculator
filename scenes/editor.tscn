@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2wqcj2sjciqe"]
+[gd_scene load_steps=10 format=3 uid="uid://3c6msb02l5p2"]
 
 [ext_resource type="Script" path="res://scripts/editor.gd" id="2_pobmm"]
 [ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="2_pqxpf"]
 [ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="3_edyvv"]
-[ext_resource type="Script" path="res://scripts/table_container.gd" id="5_ar5vj"]
+[ext_resource type="Script" path="res://scripts/adaptive_container.gd" id="4_sr68m"]
 [ext_resource type="PackedScene" uid="uid://cr67efsdcqrfo" path="res://scenes/player_input.tscn" id="5_ll5ge"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ck1ft"]
@@ -43,10 +43,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = -16.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_pqxpf")
@@ -64,23 +64,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EditorPanel/VBoxContainer"]
+[node name="TitleBar" type="HBoxContainer" parent="EditorPanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="CancelButton" type="Button" parent="EditorPanel/VBoxContainer/HBoxContainer"]
+[node name="CancelButton" type="Button" parent="EditorPanel/VBoxContainer/TitleBar"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Cancel"
 
-[node name="TitleLabel" type="Label" parent="EditorPanel/VBoxContainer/HBoxContainer"]
+[node name="TitleLabel" type="Label" parent="EditorPanel/VBoxContainer/TitleBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_edyvv")
 text = "Edit"
 horizontal_alignment = 1
 
-[node name="SaveButton" type="Button" parent="EditorPanel/VBoxContainer/HBoxContainer"]
+[node name="SaveButton" type="Button" parent="EditorPanel/VBoxContainer/TitleBar"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Save"
@@ -113,7 +113,8 @@ placeholder_text = "100"
 [node name="TableContainer" type="BoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 vertical = true
-script = ExtResource("5_ar5vj")
+script = ExtResource("4_sr68m")
+ratio = 1.2
 
 [node name="WinningScoreTable" type="PanelContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer"]
 self_modulate = Color(0.4, 1, 0.4, 1)
@@ -130,12 +131,11 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="PlayerLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/Labels"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_edyvv")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
-text = "Model"
+text = "Player"
 
 [node name="WeightLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/Labels"]
 layout_mode = 2
@@ -191,12 +191,11 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="PlayerLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/Labels"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_edyvv")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
-text = "Model"
+text = "Player"
 
 [node name="WeightLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/Labels"]
 layout_mode = 2

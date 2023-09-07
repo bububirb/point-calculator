@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cgltqjf5he0rm"]
+[gd_scene load_steps=15 format=3 uid="uid://cgltqjf5he0rm"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_nwuau"]
 [ext_resource type="PackedScene" uid="uid://brj7b34jopmx8" path="res://scenes/card_list.tscn" id="1_wgoid"]
-[ext_resource type="PackedScene" uid="uid://b2wqcj2sjciqe" path="res://scenes/editor.tscn" id="4_556hw"]
+[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="2_j3ric"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="2_qit71"]
+[ext_resource type="PackedScene" uid="uid://3c6msb02l5p2" path="res://scenes/editor.tscn" id="4_556hw"]
 [ext_resource type="Texture2D" uid="uid://bgqnoiiska8p3" path="res://assets/icons/new.svg" id="4_t5njr"]
 [ext_resource type="FontFile" uid="uid://55xc72uprrn7" path="res://resources/fonts/product_sans_bold_oversampled.ttf" id="4_uf7jg"]
 [ext_resource type="Script" path="res://scripts/action_button.gd" id="5_lsbci"]
+[ext_resource type="PackedScene" uid="uid://dyvn80hyih8aq" path="res://scenes/player_list.tscn" id="6_11thy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_geier"]
 content_margin_left = 15.0
@@ -79,21 +82,39 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="MenuBar" type="HBoxContainer" parent="MainContainer"]
-visible = false
+[node name="MenuBar" type="Control" parent="MainContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="SessionsButton" type="Button" parent="MainContainer/MenuBar"]
-layout_mode = 2
-text = "Sessions"
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MenuBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="NewButton" type="Button" parent="MainContainer/MenuBar"]
+[node name="PlayersButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Players"
+
+[node name="SessionLabel" type="Label" parent="MainContainer/MenuBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_j3ric")
+text = "Session"
+horizontal_alignment = 1
+
+[node name="NewButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "New"
-icon = ExtResource("4_t5njr")
-
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
-layout_mode = 2
+icon = ExtResource("2_qit71")
 
 [node name="CardList" parent="MainContainer" instance=ExtResource("1_wgoid")]
 layout_mode = 2
@@ -102,6 +123,12 @@ size_flags_vertical = 3
 [node name="Editor" parent="MainContainer" instance=ExtResource("4_556hw")]
 clip_contents = true
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="PlayerList" parent="MainContainer" instance=ExtResource("6_11thy")]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 
 [node name="NewButton" type="Button" parent="."]

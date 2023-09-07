@@ -34,4 +34,4 @@ theme/custom_font="res://resources/fonts/roboto_regular.ttf"
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.101961, 0.101961, 0.101961, 1)
+environment/defaults/default_clear_color=Color(0.07, 0.07, 0.07, 1)

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/card_list.gd" id="1_j7maw"]
 
 [node name="CardList" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +23,7 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
+vertical_scroll_mode = 2
 
 [node name="CardContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2

@@ -1,7 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr67efsdcqrfo"]
+[gd_scene load_steps=6 format=3 uid="uid://cr67efsdcqrfo"]
 
 [ext_resource type="Script" path="res://scripts/player_input.gd" id="1_8evf6"]
 [ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="1_mhtkl"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="2_jv5b0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs518"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yp67v"]
 content_margin_left = 12.0
@@ -14,24 +27,25 @@ offset_bottom = 31.0
 grow_horizontal = 2
 script = ExtResource("1_8evf6")
 
-[node name="PlayerOption" type="OptionButton" parent="."]
-visible = false
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vs518")
+
+[node name="Player" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerOption" type="OptionButton" parent="PanelContainer/Player"]
 layout_mode = 2
 size_flags_horizontal = 3
 flat = true
 clip_text = true
-item_count = 5
-selected = 0
-popup/item_0/text = "Stable Diffusion 1.5"
-popup/item_0/id = 0
-popup/item_1/text = "Midjourney"
-popup/item_1/id = 1
-popup/item_2/text = "Adobe Firefly"
-popup/item_2/id = 2
-popup/item_3/text = "SDXL 1.0"
-popup/item_3/id = 3
-popup/item_4/text = "Dall-E"
-popup/item_4/id = 4
+
+[node name="PlayerResetButton" type="Button" parent="PanelContainer/Player"]
+layout_mode = 2
+icon = ExtResource("2_jv5b0")
+flat = true
 
 [node name="WeightInput" type="LineEdit" parent="."]
 layout_mode = 2

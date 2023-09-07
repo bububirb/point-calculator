@@ -1,0 +1,124 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyvn80hyih8aq"]
+
+[ext_resource type="Script" path="res://scripts/player_list.gd" id="1_5ncjt"]
+[ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="1_yrb65"]
+[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="2_byoc3"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="3_a1nju"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="4_b5cx7"]
+[ext_resource type="Script" path="res://scripts/adaptive_container.gd" id="6_4fh5s"]
+[ext_resource type="PackedScene" uid="uid://c3vos5s0k8kwk" path="res://scenes/session_graph.tscn" id="6_xpjhl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n68dr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.07, 0.07, 0.07, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 5
+
+[node name="PlayerList" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ncjt")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_yrb65")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="TitleBar" type="HBoxContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="Panel/VBoxContainer/TitleBar"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Cancel"
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_byoc3")
+text = "Player List"
+horizontal_alignment = 1
+
+[node name="SaveButton" type="Button" parent="Panel/VBoxContainer/TitleBar"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Save"
+
+[node name="PlayerListControls" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AddLabel" type="Label" parent="Panel/VBoxContainer/PlayerListControls"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_byoc3")
+text = "Add: "
+
+[node name="AddInput" type="LineEdit" parent="Panel/VBoxContainer/PlayerListControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddButton" type="Button" parent="Panel/VBoxContainer/PlayerListControls"]
+layout_mode = 2
+icon = ExtResource("3_a1nju")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/PlayerListControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RemoveButton" type="Button" parent="Panel/VBoxContainer/PlayerListControls"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Remove"
+icon = ExtResource("4_b5cx7")
+
+[node name="AdaptiveContainer" type="BoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+vertical = true
+script = ExtResource("6_4fh5s")
+ratio = 1.2
+
+[node name="PlayerItemList" type="ItemList" parent="Panel/VBoxContainer/AdaptiveContainer"]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_n68dr")
+max_columns = 2
+same_column_width = true
+fixed_column_width = 144
+
+[node name="SessionGraph" parent="Panel/VBoxContainer/AdaptiveContainer" instance=ExtResource("6_xpjhl")]
+layout_mode = 2
+size_flags_horizontal = 3
