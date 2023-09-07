@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MatchData" load_steps=2 format=3 uid="uid://ck5qh7kxm61rh"]
+
+[ext_resource type="Script" path="res://scripts/match_data.gd" id="1_7ayk5"]
+
+[resource]
+script = ExtResource("1_7ayk5")
+quota = 100.0
+winning_weights = [1.0, 1.0, 1.0, 1.0, 1.0]
+losing_weights = [1.0, 1.0, 1.0, 1.0, 1.0]
+winning_scores = [20.0, 20.0, 20.0, 20.0, 20.0]
+losing_scores = [-20.0, -20.0, -20.0, -20.0, -20.0]
