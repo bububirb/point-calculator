@@ -1,0 +1,206 @@
+[gd_scene load_steps=8 format=3 uid="uid://iy5ks1ykjqif"]
+
+[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="1_4k0ct"]
+[ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="1_nkoid"]
+[ext_resource type="Script" path="res://scripts/card.gd" id="2_y1t1x"]
+[ext_resource type="Texture2D" uid="uid://ce0ltwndhvrpp" path="res://assets/icons/copy.svg" id="4_qdor4"]
+[ext_resource type="Texture2D" uid="uid://ctki3t65miurq" path="res://assets/icons/delete.svg" id="5_4fl45"]
+[ext_resource type="Texture2D" uid="uid://bgtxq04v850vy" path="res://assets/icons/edit.svg" id="5_cajly"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dw5r7"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+
+[node name="Card" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("2_y1t1x")
+
+[node name="IndexLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dw5r7")
+text = "1"
+horizontal_alignment = 2
+
+[node name="CardPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_nkoid")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scores" type="VBoxContainer" parent="CardPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="CardPanel/HBoxContainer/Scores"]
+modulate = Color(0.4, 1, 0.4, 1)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="WinningScoreLabels" type="HBoxContainer" parent="CardPanel/HBoxContainer/Scores/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label1" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="CardPanel/HBoxContainer/Scores"]
+modulate = Color(1, 0.4, 0.4, 1)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="LosingScoreLabels" type="HBoxContainer" parent="CardPanel/HBoxContainer/Scores/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label1" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="CardPanel/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("1_4k0ct")
+theme_override_font_sizes/font_size = 24
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardButtons" type="VFlowContainer" parent="CardPanel/HBoxContainer"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="CardPanel/HBoxContainer/CardButtons"]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+icon = ExtResource("5_cajly")
+icon_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="CardPanel/HBoxContainer/CardButtons"]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+icon = ExtResource("5_4fl45")
+icon_alignment = 1
+
+[node name="CopyResultsButton" type="Button" parent="CardPanel/HBoxContainer/CardButtons"]
+custom_minimum_size = Vector2(54, 112)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+icon = ExtResource("4_qdor4")
+icon_alignment = 1

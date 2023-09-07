@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=3 uid="uid://cgltqjf5he0rm"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_nwuau"]
+[ext_resource type="PackedScene" uid="uid://brj7b34jopmx8" path="res://scenes/card_list.tscn" id="1_wgoid"]
+[ext_resource type="PackedScene" uid="uid://b2wqcj2sjciqe" path="res://scenes/editor.tscn" id="4_556hw"]
+[ext_resource type="Texture2D" uid="uid://bgqnoiiska8p3" path="res://assets/icons/new.svg" id="4_t5njr"]
+[ext_resource type="FontFile" uid="uid://55xc72uprrn7" path="res://resources/fonts/product_sans_bold_oversampled.ttf" id="4_uf7jg"]
+[ext_resource type="Script" path="res://scripts/action_button.gd" id="5_lsbci"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_geier"]
+content_margin_left = 15.0
+content_margin_top = 16.0
+content_margin_right = 15.0
+content_margin_bottom = 16.0
+bg_color = Color(0.15, 0.15, 0.15, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs6uk"]
+content_margin_left = 15.0
+content_margin_top = 16.0
+content_margin_right = 15.0
+content_margin_bottom = 16.0
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4a2ht"]
+content_margin_left = 15.0
+content_margin_top = 16.0
+content_margin_right = 15.0
+content_margin_bottom = 16.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ievq"]
+content_margin_left = 15.0
+content_margin_top = 16.0
+content_margin_right = 15.0
+content_margin_bottom = 16.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6r0x"]
+content_margin_left = 15.0
+content_margin_top = 16.0
+content_margin_right = 15.0
+content_margin_bottom = 16.0
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nwuau")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MenuBar" type="HBoxContainer" parent="MainContainer"]
+visible = false
+layout_mode = 2
+
+[node name="SessionsButton" type="Button" parent="MainContainer/MenuBar"]
+layout_mode = 2
+text = "Sessions"
+
+[node name="NewButton" type="Button" parent="MainContainer/MenuBar"]
+layout_mode = 2
+text = "New"
+icon = ExtResource("4_t5njr")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="CardList" parent="MainContainer" instance=ExtResource("1_wgoid")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Editor" parent="MainContainer" instance=ExtResource("4_556hw")]
+clip_contents = true
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="NewButton" type="Button" parent="."]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -144.0
+offset_right = -24.0
+offset_bottom = -72.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_uf7jg")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_geier")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gs6uk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4a2ht")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8ievq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t6r0x")
+text = "New"
+icon = ExtResource("4_t5njr")
+alignment = 2
+clip_text = true
+expand_icon = true
+script = ExtResource("5_lsbci")

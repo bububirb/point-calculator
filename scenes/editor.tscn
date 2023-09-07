@@ -1,0 +1,238 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2wqcj2sjciqe"]
+
+[ext_resource type="Script" path="res://scripts/editor.gd" id="2_pobmm"]
+[ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="2_pqxpf"]
+[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="3_edyvv"]
+[ext_resource type="Script" path="res://scripts/table_container.gd" id="5_ar5vj"]
+[ext_resource type="PackedScene" uid="uid://cr67efsdcqrfo" path="res://scenes/player_input.tscn" id="5_ll5ge"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ck1ft"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np6dn"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqc6m"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uojpb"]
+color = Color(1, 1, 1, 0.4)
+thickness = 2
+
+[node name="Editor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("2_pobmm")
+
+[node name="EditorPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_pqxpf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="EditorPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Cancel"
+
+[node name="TitleLabel" type="Label" parent="EditorPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_edyvv")
+text = "Edit"
+horizontal_alignment = 1
+
+[node name="SaveButton" type="Button" parent="EditorPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+text = "Save"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EditorPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Quota" type="HBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="QuotaLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/Quota"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ck1ft")
+text = "Total:"
+
+[node name="QuotaInput" type="LineEdit" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/Quota"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "100"
+
+[node name="TableContainer" type="BoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+vertical = true
+script = ExtResource("5_ar5vj")
+
+[node name="WinningScoreTable" type="PanelContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer"]
+self_modulate = Color(0.4, 1, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_np6dn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Labels" type="HBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
+text = "Model"
+
+[node name="WeightLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
+text = "Weight"
+
+[node name="ResultLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
+text = "Result"
+
+[node name="Panel" type="Panel" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_uojpb")
+
+[node name="WinningPlayerInputs" type="VBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerInput" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/WinningPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput2" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/WinningPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput3" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/WinningPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput4" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/WinningPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput5" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/WinningPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="LosingScoreTable" type="PanelContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer"]
+self_modulate = Color(1, 0.4, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_np6dn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Labels" type="HBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
+text = "Model"
+
+[node name="WeightLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
+text = "Weight"
+
+[node name="ResultLabel" type="Label" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_fonts/font = ExtResource("3_edyvv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqc6m")
+text = "Result"
+
+[node name="Panel" type="Panel" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_uojpb")
+
+[node name="LosingPlayerInputs" type="VBoxContainer" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerInput" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/LosingPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput2" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/LosingPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput3" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/LosingPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput4" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/LosingPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
+
+[node name="PlayerInput5" parent="EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/LosingPlayerInputs" instance=ExtResource("5_ll5ge")]
+layout_mode = 2
