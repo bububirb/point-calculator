@@ -116,9 +116,7 @@ func add_item(player_name, local_score = 0, global_score = 0):
 func remove_item(index):
 	player_entry_container.get_child(index).free()
 	selection.erase(index)
-	print(item_count)
 	update_item_count()
-	print(item_count)
 
 func clear():
 	for player_entry in player_entry_container.get_children():

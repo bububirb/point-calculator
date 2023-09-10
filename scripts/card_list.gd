@@ -70,6 +70,7 @@ func add_card():
 	card_instance.connect("card_delete_pressed", _on_card_delete_pressed)
 	card_instance.connect("card_move_up_pressed", _on_card_move_up_pressed)
 	card_instance.connect("card_move_down_pressed", _on_card_move_down_pressed)
+	card_instance.connect("card_duplicate_pressed", _on_card_duplicate_pressed)
 
 func delete_card(index):
 	card_container.get_child(index).queue_free()

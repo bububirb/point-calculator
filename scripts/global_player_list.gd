@@ -79,14 +79,14 @@ func _on_remove_button_pressed():
 
 func _on_tally_option_button_item_selected(index):
 	tally_function = Tally.select_tally_option(index)
-	global_scores = Tally.tally_all_sessions()
+	global_scores = Tally.tally_all_sessions(global_scores)
 	update_player_item_list()
 	update_session_graph()
 
 func load_tally_options():
 	tally_option_button.clear()
-	for tally_option in Tally.tally_options:
-		tally_option_button.add_item(tally_option.get_method().capitalize())
+	for tally_display_name in Tally.tally_display_names:
+		tally_option_button.add_item(tally_display_name)
 	tally_option_button.select(Tally.tally_options.find(tally_function))
 
 func load_player_data():
@@ -100,6 +100,7 @@ func load_player_data():
 		player_data = ResourceLoader.load("res://resources/player_data/default_player_data.tres")
 	names = player_data.names
 	scores = player_data.scores
+	global_scores = player_data.scores
 	tally_function = Tally.get(player_data.tally_method)
 	if tally_function:
 		Tally.tally_function = tally_function
@@ -108,6 +109,8 @@ func load_player_data():
 func load_player_stats():
 	for key in scores.keys():
 		scores[key] = 0
+	for key in global_scores.keys():
+		global_scores[key] = 0
 	
 	var player_data_exists = false
 	var dir = DirAccess.open(PLAYER_DATA_PATH)
@@ -141,7 +144,7 @@ func load_player_stats():
 					scores[id] = scores[id] + match_data.losing_scores[i]
 					match_scores[id] = match_data.losing_scores[i]
 		# Tally global scores
-		global_scores = Tally.tally_all_sessions()
+		global_scores = Tally.tally_all_sessions(global_scores)
 		update_session_graph()
 
 func load_player_item_list():
