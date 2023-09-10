@@ -1,6 +1,7 @@
 extends Node
 
-var tally_options = [simple_sum, simple_clamp, two_phase_clamp]
+var tally_options = [simple_sum, simple_clamp, two_phase_clamp, league_of_trouble]
+var tally_display_names = ["Simple Sum", "Simple Clamp", "Two Phase Clamp", "LoT"]
 var tally_function = simple_sum
 
 var clamped_tally_min_score = 100 # Todo: Expose to GUI
@@ -25,8 +26,7 @@ func tally_session(session_name):
 			tally_scores[id] += match_data.losing_scores[i]
 	return tally_scores
 
-func tally_all_sessions():
-	var tally_scores = {}
+func tally_all_sessions(tally_scores : Dictionary):
 	for session in Globals.list_ordered_session_folders():
 		var match_data : MatchData
 		var target_match_data_path = Globals.SESSION_DATA_PATH + session + "/match_data/"
@@ -36,14 +36,21 @@ func tally_all_sessions():
 			
 			for i in match_data.winning_scores.size():
 				var id = match_data.winning_player_ids[i]
-				if not tally_scores.has(id):
-					tally_scores[id] = 0
-				tally_scores[id] = tally_function.call(tally_scores[id], match_data.winning_scores[i])
+				if id != "":
+#					if not tally_scores.has(id):
+#						tally_scores[id] = 0
+#					tally_scores[id] = tally_function.call(tally_scores[id], match_data.winning_scores[i])
+					
+					if tally_scores.has(id):
+						tally_scores[id] = tally_function.call(tally_scores[id], match_data.winning_scores[i])
 				
 				id = match_data.losing_player_ids[i]
-				if not tally_scores.has(id):
-					tally_scores[id] = 0
-				tally_scores[id] = tally_function.call(tally_scores[id], match_data.losing_scores[i])
+				if id != "":
+#					if not tally_scores.has(id):
+#						tally_scores[id] = 0
+#					tally_scores[id] = tally_function.call(tally_scores[id], match_data.losing_scores[i])
+					if tally_scores.has(id):
+						tally_scores[id] = tally_function.call(tally_scores[id], match_data.losing_scores[i])
 	# Round tally results
 	for key in tally_scores.keys():
 		tally_scores[key] = round(tally_scores[key])
@@ -74,6 +81,19 @@ func two_phase_clamp(total, score):
 			score = 0 # Negate losses
 		elif total <= clamped_tally_min_score * 2.5:
 			score *= 0.5 # 50% loss reduction
+	return total + score
+
+func league_of_trouble(total, score):
+	# Special tally method used in LFT's ranked system
+	if score < 0:
+		if total <= 100: # Score is below or equals 100
+			score = 0 # Negate losses
+		elif total <= 250: # 101 - 250
+			score *= 0.5 # 50% loss applied
+		elif total <= 500: # 251 - 500
+			score *= 0.5 # Full loss applied
+		else: # 501+
+			score *= 1.25 # 125% loss applied
 	return total + score
 
 func sort_dict(dict):
