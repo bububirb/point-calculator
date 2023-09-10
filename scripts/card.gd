@@ -4,12 +4,14 @@ signal card_edit_pressed
 signal card_delete_pressed
 signal card_move_up_pressed
 signal card_move_down_pressed
+signal card_duplicate_pressed
 
 @onready var edit_button = $CardPanel/HBoxContainer/CardButtons/EditButton
 @onready var delete_button = $CardPanel/HBoxContainer/CardButtons/DeleteButton
 @onready var move_up_button = $CardPanel/HBoxContainer/CardButtons/MoveUpButton
 @onready var move_down_button = $CardPanel/HBoxContainer/CardButtons/MoveDownButton
 @onready var copy_results_button = $CardPanel/HBoxContainer/CardButtons/CopyResultsButton
+@onready var duplicate_button = $CardPanel/HBoxContainer/CardButtons/DuplicateButton
 @onready var winning_score_labels = $CardPanel/HBoxContainer/Scores/Panel/WinningScoreLabels
 @onready var losing_score_labels = $CardPanel/HBoxContainer/Scores/Panel2/LosingScoreLabels
 @onready var index_label = $IndexLabel
@@ -22,6 +24,7 @@ func _ready():
 	delete_button.connect("pressed", _on_delete_button_pressed)
 	move_up_button.connect("pressed", _on_move_up_button_pressed)
 	move_down_button.connect("pressed", _on_move_down_button_pressed)
+	duplicate_button.connect("pressed", _on_duplicate_button_pressed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -52,6 +55,9 @@ func _on_move_up_button_pressed():
 
 func _on_move_down_button_pressed():
 	emit_signal("card_move_down_pressed", get_index())
+
+func _on_duplicate_button_pressed():
+	emit_signal("card_duplicate_pressed", get_index())
 
 func set_score_label(index, winning, score):
 	var new_text = ""

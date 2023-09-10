@@ -8,6 +8,7 @@ signal card_edit
 signal card_delete
 signal card_move_up
 signal card_move_down
+signal card_duplicate
 
 @onready var scroll_container = $ScrollContainer
 @onready var card_container = $ScrollContainer/CardContainer
@@ -34,6 +35,9 @@ func _on_card_edit_pressed(index):
 func _on_card_delete_pressed(index):
 	emit_signal("card_delete", index)
 
+func _on_card_duplicate_pressed(index):
+	emit_signal("card_duplicate", index)
+
 func _on_card_move_up_pressed(index):
 	var new_index = clamp(index - 1, 0, card_container.get_child_count() - 1)
 	card_container.move_child(card_container.get_child(index), new_index)
@@ -56,6 +60,7 @@ func load_card(match_data):
 	card_instance.connect("card_delete_pressed", _on_card_delete_pressed)
 	card_instance.connect("card_move_up_pressed", _on_card_move_up_pressed)
 	card_instance.connect("card_move_down_pressed", _on_card_move_down_pressed)
+	card_instance.connect("card_duplicate_pressed", _on_card_duplicate_pressed)
 
 func add_card():
 	var card_instance = card_scene.instantiate()
