@@ -40,6 +40,7 @@ func _ready():
 	card_list.connect("card_delete", _on_card_list_card_delete)
 	card_list.connect("card_move_up", _on_card_list_card_move_up)
 	card_list.connect("card_move_down", _on_card_list_card_move_down)
+	card_list.connect("card_duplicate", _on_card_list_card_duplicate)
 	editor.connect("cancel", _on_editor_cancel)
 	editor.connect("save", _on_editor_save)
 	player_list.connect("cancel", _on_player_list_cancel)
@@ -77,6 +78,13 @@ func _on_card_list_card_move_up(index):
 func _on_card_list_card_move_down(index):
 	move_match_data(index, 1)
 
+func _on_card_list_card_duplicate(index):
+	var list = list_match_data()
+	if index < list.size():
+		var match_data = ResourceLoader.load(MATCH_DATA_PATH + list[index])
+		save_match_data(match_data, list_match_data().size())
+		card_list.load_card(match_data)
+
 func set_edit_index(index):
 	editor.edit_index = index
 
@@ -96,11 +104,14 @@ func _on_editor_save(edit_index, winning_scores, losing_scores, quota, winning_w
 	match_data.losing_scores = losing_scores
 	match_data.winning_player_ids = winning_player_ids
 	match_data.losing_player_ids = losing_player_ids
+	save_match_data(match_data, edit_index)
+	close_editor()
+
+func save_match_data(match_data, index):
 	var dir = DirAccess.open(MATCH_DATA_PATH)
 	if not dir:
 		DirAccess.open(Globals.CURRENT_SESSION_PATH).make_dir("match_data")
-	ResourceSaver.save(match_data, MATCH_DATA_PATH + "match_data_" + str(edit_index) + ".tres")
-	close_editor()
+	ResourceSaver.save(match_data, MATCH_DATA_PATH + "match_data_" + str(index) + ".tres")
 
 func load_data():
 	var session_data = Globals.load_session_data(session_name)
