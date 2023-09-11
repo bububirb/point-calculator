@@ -27,6 +27,8 @@ func tally_session(session_name):
 	return tally_scores
 
 func tally_all_sessions(tally_scores : Dictionary):
+	for key in tally_scores.keys():
+		tally_scores[key] = 0
 	for session in Globals.list_ordered_session_folders():
 		var match_data : MatchData
 		var target_match_data_path = Globals.SESSION_DATA_PATH + session + "/match_data/"
@@ -56,6 +58,27 @@ func tally_all_sessions(tally_scores : Dictionary):
 		tally_scores[key] = round(tally_scores[key])
 	tally_scores = sort_dict(tally_scores)
 	return tally_scores
+
+func tally_matches_per_player(players : Dictionary):
+	for session in Globals.list_ordered_session_folders():
+		var match_data : MatchData
+		var target_match_data_path = Globals.SESSION_DATA_PATH + session + "/match_data/"
+		for file in Globals.list_match_data(session):
+			# Todo: Sort by naturalnocasecmp
+			match_data = ResourceLoader.load(target_match_data_path + file)
+			
+			for i in match_data.winning_scores.size():
+				var id = match_data.winning_player_ids[i]
+				if id != "":
+					if players.has(id):
+						players[id] += 1
+				
+				id = match_data.losing_player_ids[i]
+				if id != "":
+					if players.has(id):
+						players[id] += 1
+	players = sort_dict(players)
+	return players
 
 func select_tally_option(index):
 	tally_function = tally_options[index]
