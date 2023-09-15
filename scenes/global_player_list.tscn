@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cl2ianka1guo4"]
 
-[ext_resource type="Script" path="res://scripts/global_player_list.gd" id="1_u335h"]
+[ext_resource type="Script" path="res://scripts/player_list.gd" id="1_ir5yv"]
 [ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="2_rpr3g"]
 [ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="3_adho4"]
 [ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="4_4kcu1"]
@@ -16,7 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_u335h")
+script = ExtResource("1_ir5yv")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -131,8 +131,6 @@ ratio = 1.2
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 size_flags_vertical = 3
-show_local_scores = false
-show_global_scores = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/AdaptiveContainer"]
 layout_mode = 2
