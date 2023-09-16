@@ -9,6 +9,7 @@ var PLAYER_DATA_PATH : String
 var names = {}
 var scores = {}
 var global_scores = {}
+var matches = {}
 var tally_function
 
 @onready var cancel_button = $Panel/VBoxContainer/TitleBar/CancelButton
@@ -100,9 +101,11 @@ func load_player_data():
 		player_data = ResourceLoader.load("res://resources/player_data/default_player_data.tres")
 	names = player_data.names
 	scores = player_data.scores
-	global_scores = player_data.scores
+	global_scores = player_data.scores.duplicate()
+	matches = player_data.scores.duplicate()
 	tally_function = Tally.get(player_data.tally_method)
-	Tally.tally_function = tally_function
+	if tally_function:
+		Tally.tally_function = tally_function
 	load_tally_options()
 
 func load_player_stats():
@@ -119,31 +122,34 @@ func load_player_stats():
 	if dir.file_exists("player_data.tres"):
 		player_data_exists = true
 		
-	dir = DirAccess.open(MATCH_DATA_PATH)
-	if not dir:
-		DirAccess.open(Globals.CURRENT_SESSION_PATH).make_dir("match_data")
+	if player_item_list.show_local_scores:
 		dir = DirAccess.open(MATCH_DATA_PATH)
+		if not dir:
+			DirAccess.open(Globals.CURRENT_SESSION_PATH).make_dir("match_data")
+			dir = DirAccess.open(MATCH_DATA_PATH)
 	var match_data : MatchData
 	
 	if player_data_exists:
-		# Tally local scores
-		for file in list_match_data():
-			var match_scores = {}
-			match_data = ResourceLoader.load(MATCH_DATA_PATH + file)
-			
-			for i in match_data.winning_scores.size():
-				var id = match_data.winning_player_ids[i]
-				if scores.has(id):
-					scores[id] = scores[id] + match_data.winning_scores[i]
-					match_scores[id] = match_data.winning_scores[i]
-					# Todo: Record players participating in session
+		if player_item_list.show_local_scores:
+			# Tally local scores
+			for file in list_match_data():
+				var match_scores = {}
+				match_data = ResourceLoader.load(MATCH_DATA_PATH + file)
 				
-				id = match_data.losing_player_ids[i]
-				if scores.has(id):
-					scores[id] = scores[id] + match_data.losing_scores[i]
-					match_scores[id] = match_data.losing_scores[i]
+				for i in match_data.winning_scores.size():
+					var id = match_data.winning_player_ids[i]
+					if scores.has(id):
+						scores[id] = scores[id] + match_data.winning_scores[i]
+						match_scores[id] = match_data.winning_scores[i]
+						# Todo: Record players participating in session
+					
+					id = match_data.losing_player_ids[i]
+					if scores.has(id):
+						scores[id] = scores[id] + match_data.losing_scores[i]
+						match_scores[id] = match_data.losing_scores[i]
 		# Tally global scores
 		global_scores = Tally.tally_all_sessions(global_scores)
+		matches = Tally.tally_matches_per_player(matches)
 		update_session_graph()
 
 func load_player_item_list():
@@ -154,7 +160,7 @@ func load_player_item_list():
 func update_player_item_list():
 	player_item_list.clear()
 	for i in names.keys():
-		player_item_list.add_item(names[i], scores[i], global_scores[i])
+		player_item_list.add_item(names[i], scores[i], global_scores[i], matches[i])
 
 func update_session_graph():
 	session_graph.clear()

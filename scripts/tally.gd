@@ -60,6 +60,8 @@ func tally_all_sessions(tally_scores : Dictionary):
 	return tally_scores
 
 func tally_matches_per_player(players : Dictionary):
+	for key in players.keys():
+		players[key] = 0
 	for session in Globals.list_ordered_session_folders():
 		var match_data : MatchData
 		var target_match_data_path = Globals.SESSION_DATA_PATH + session + "/match_data/"
