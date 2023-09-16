@@ -158,12 +158,12 @@ func switch_to_new():
 
 # For player list integration
 func open_player_list():
+	players_button.disabled = true
 	global_player_list.load_player_item_list()
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tween.tween_property(global_player_list, "size_flags_stretch_ratio", 1.0, tween_duration)
 	tween.tween_property(session_options, "size_flags_stretch_ratio", 0.0, tween_duration)
 	tween.tween_property(title_bar, "custom_minimum_size:y", 0.0, tween_duration)
-	players_button.disabled = true
 
 func close_player_list():
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()

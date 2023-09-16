@@ -3,8 +3,9 @@ extends Panel
 signal item_selected
 signal sorted
 
-@export var show_local_scores = true
-@export var show_global_scores = false
+@export var show_local_scores = false
+@export var show_global_scores = true
+@export var show_matches = true
 
 var player_entry_scene : PackedScene = load("res://scenes/player_entry.tscn")
 
@@ -19,11 +20,13 @@ var player_entries_order = []
 @onready var player_name_sort_button = $VBoxContainer/Panel/Labels/PlayerNameSortButton
 @onready var local_score_sort_button = $VBoxContainer/Panel/Labels/LocalScoreSortButton
 @onready var global_score_sort_button = $VBoxContainer/Panel/Labels/GlobalScoreSortButton
+@onready var matches_sort_button = $VBoxContainer/Panel/Labels/MatchesSortButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	local_score_sort_button.visible = show_local_scores
 	global_score_sort_button.visible = show_global_scores
+	matches_sort_button.visible = show_matches
 #	instantiate_player_entry(null, null, null)
 #	instantiate_player_entry(null, null, null)
 #	instantiate_player_entry(null, null, null)
@@ -36,7 +39,7 @@ func _ready():
 func _process(_delta):
 	pass
 
-func instantiate_player_entry(player_name, local_score, global_score):
+func instantiate_player_entry(player_name, local_score, global_score, matches = 0):
 	var player_entry_node = player_entry_scene.instantiate()
 	player_entry_container.add_child(player_entry_node)
 	player_entry_node.connect("selected", _on_player_entry_selected)
@@ -47,6 +50,9 @@ func instantiate_player_entry(player_name, local_score, global_score):
 	if show_global_scores:
 		player_entry_node.set_global_score(global_score)
 	player_entry_node.show_global_score(show_global_scores)
+	if show_matches:
+		player_entry_node.set_matches(matches)
+	player_entry_node.show_matches(show_matches)
 
 func _on_player_entry_selected(index):
 	select(index)
@@ -64,12 +70,15 @@ func switch_sort_arrow(type, is_reversed):
 	var player_name_arrow = player_name_sort_button.get_node("Arrow")
 	var local_score_arrow = local_score_sort_button.get_node("Arrow")
 	var global_score_arrow = global_score_sort_button.get_node("Arrow")
+	var matches_arrow = matches_sort_button.get_node("Arrow")
 	player_name_arrow.visible = type == "player_name"
 	local_score_arrow.visible = type == "local_score"
 	global_score_arrow.visible = type == "global_score"
+	matches_arrow.visible = type == "matches"
 	player_name_arrow.flip_v = is_reversed
 	local_score_arrow.flip_v = is_reversed
 	global_score_arrow.flip_v = is_reversed
+	matches_arrow.flip_v = is_reversed
 
 func sort_player_entries():
 	var sorted_nodes = player_entry_container.get_children()
@@ -106,10 +115,17 @@ func sort_function(a, b):
 				return value_a > value_b
 			else:
 				return value_a < value_b
+		"matches":
+			value_a = a.get_matches()
+			value_b = b.get_matches()
+			if not reversed:
+				return value_a > value_b
+			else:
+				return value_a < value_b
 	
 
-func add_item(player_name, local_score = 0, global_score = 0):
-	instantiate_player_entry(player_name, local_score, global_score)
+func add_item(player_name, local_score = 0, global_score = 0, matches = 0):
+	instantiate_player_entry(player_name, local_score, global_score, matches)
 	update_item_count()
 	sort_player_entries()
 
@@ -145,6 +161,9 @@ func set_local_score(index, local_score):
 func set_global_score(index, global_score):
 	player_entry_container.get_child(index).set_global_score(global_score)
 
+func set_matches(index, matches):
+	player_entry_container.get_child(index).set_matches(matches)
+
 func get_player_name(index):
 	return player_entry_container.get_child(index).get_player_name()
 
@@ -153,6 +172,9 @@ func get_local_score(index):
 
 func get_global_score(index):
 	return player_entry_container.get_child(index).get_global_score()
+
+func get_matches(index):
+	return player_entry_container.get_child(index).get_matches()
 
 func update_item_count():
 	item_count = player_entry_container.get_child_count()

@@ -155,12 +155,12 @@ func close_editor():
 #	new_button.show_button()
 
 func open_player_list():
+	players_button.disabled = true
 	player_list.load_player_item_list()
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tween.tween_property(player_list, "size_flags_stretch_ratio", 1.0, tween_duration)
 	tween.tween_property(card_list, "size_flags_stretch_ratio", 0.0, tween_duration)
 	tween.tween_property(menu_bar, "custom_minimum_size:y", 0.0, tween_duration)
-	players_button.disabled = true
 
 func close_player_list():
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()

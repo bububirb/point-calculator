@@ -9,6 +9,7 @@ var PLAYER_DATA_PATH : String
 var names = {}
 var scores = {}
 var global_scores = {}
+var matches = {}
 var tally_function
 
 @onready var cancel_button = $Panel/VBoxContainer/TitleBar/CancelButton
@@ -100,7 +101,8 @@ func load_player_data():
 		player_data = ResourceLoader.load("res://resources/player_data/default_player_data.tres")
 	names = player_data.names
 	scores = player_data.scores
-	global_scores = player_data.scores
+	global_scores = player_data.scores.duplicate()
+	matches = player_data.scores.duplicate()
 	tally_function = Tally.get(player_data.tally_method)
 	if tally_function:
 		Tally.tally_function = tally_function
@@ -135,16 +137,17 @@ func load_player_stats():
 			for i in match_data.winning_scores.size():
 				var id = match_data.winning_player_ids[i]
 				if scores.has(id):
-					scores[id] = scores[id] + match_data.winning_scores[i]
+					scores[id] += match_data.winning_scores[i]
 					match_scores[id] = match_data.winning_scores[i]
 					# Todo: Record players participating in session
 				
 				id = match_data.losing_player_ids[i]
 				if scores.has(id):
-					scores[id] = scores[id] + match_data.losing_scores[i]
+					scores[id] += match_data.losing_scores[i]
 					match_scores[id] = match_data.losing_scores[i]
 		# Tally global scores
 		global_scores = Tally.tally_all_sessions(global_scores)
+		matches = Tally.tally_matches_per_player(matches)
 		update_session_graph()
 
 func load_player_item_list():
@@ -155,7 +158,7 @@ func load_player_item_list():
 func update_player_item_list():
 	player_item_list.clear()
 	for i in names.keys():
-		player_item_list.add_item(names[i], scores[i], global_scores[i])
+		player_item_list.add_item(names[i], scores[i], global_scores[i], matches[i])
 
 func update_session_graph():
 	session_graph.clear()
