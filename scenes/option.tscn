@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmflaglwg56tn"]
+
+[ext_resource type="Script" path="res://scripts/option.gd" id="1_pf6t1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i3xxt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[node name="Option" type="Button"]
+custom_minimum_size = Vector2(0, 32)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i3xxt")
+text = "Option 1"
+alignment = 0
+script = ExtResource("1_pf6t1")

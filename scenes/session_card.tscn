@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d35kythlq84t1"]
+[gd_scene load_steps=8 format=3 uid="uid://d35kythlq84t1"]
 
 [ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="1_dwn2q"]
 [ext_resource type="Script" path="res://scripts/session_card.gd" id="1_iahk2"]
@@ -7,11 +7,25 @@
 [ext_resource type="Texture2D" uid="uid://1rb8b2qgcr1t" path="res://assets/icons/up_small.svg" id="4_vkgr3"]
 [ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down_small.svg" id="5_713ma"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kn14q"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 0.6)
+border_color = Color(0.3, 0.3, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
 [node name="SessionCard" type="Panel"]
 custom_minimum_size = Vector2(0, 48)
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kn14q")
 script = ExtResource("1_iahk2")
 
 [node name="SessionOptions" type="HBoxContainer" parent="."]

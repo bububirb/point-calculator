@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr67efsdcqrfo"]
+[gd_scene load_steps=7 format=3 uid="uid://cr67efsdcqrfo"]
 
 [ext_resource type="Script" path="res://scripts/player_input.gd" id="1_8evf6"]
 [ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="1_mhtkl"]
 [ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="2_jv5b0"]
+[ext_resource type="PackedScene" uid="uid://18k6amslyk1v" path="res://scenes/filtered_option_button.tscn" id="3_6qq28"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs518"]
 content_margin_left = 0.0
@@ -36,11 +37,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vs518")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerOption" type="OptionButton" parent="PanelContainer/Player"]
+[node name="PlayerOption" parent="PanelContainer/Player" instance=ExtResource("3_6qq28")]
 layout_mode = 2
 size_flags_horizontal = 3
 flat = true
-clip_text = true
 
 [node name="PlayerResetButton" type="Button" parent="PanelContainer/Player"]
 layout_mode = 2
@@ -53,7 +53,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 mouse_filter = 1
 placeholder_text = "1"
-caret_blink = true
 
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 2

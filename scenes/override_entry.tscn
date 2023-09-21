@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://r62ba0facss3"]
+
+[ext_resource type="PackedScene" uid="uid://18k6amslyk1v" path="res://scenes/filtered_option_button.tscn" id="1_58bcl"]
+[ext_resource type="Script" path="res://scripts/override_entry.gd" id="1_s8dyf"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="3_fc21e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v86i"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4oo4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_moaw8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1u8ly"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[node name="OverrideEntry" type="HBoxContainer"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 1020.0
+offset_bottom = 36.0
+size_flags_vertical = 0
+script = ExtResource("1_s8dyf")
+
+[node name="PlayerOption" parent="." instance=ExtResource("1_58bcl")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_8v86i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a4oo4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_moaw8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OverrideInput" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "0"
+
+[node name="RelativeCheckBox" type="CheckBox" parent="HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+button_pressed = true
+text = "Relative"
+flat = true
+alignment = 1
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1u8ly")
+icon = ExtResource("3_fc21e")
+flat = true
