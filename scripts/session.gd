@@ -94,16 +94,21 @@ func _on_editor_cancel():
 		card_list.delete_card(editor.edit_index)
 	close_editor()
 
-func _on_editor_save(edit_index, winning_scores, losing_scores, quota, winning_weights, losing_weights, winning_player_ids, losing_player_ids):
-	card_list.set_card_scores(edit_index, winning_scores, losing_scores)
-	var match_data = MatchData.new()
-	match_data.quota = quota
-	match_data.winning_weights = winning_weights
-	match_data.losing_weights = losing_weights
-	match_data.winning_scores = winning_scores
-	match_data.losing_scores = losing_scores
-	match_data.winning_player_ids = winning_player_ids
-	match_data.losing_player_ids = losing_player_ids
+#func _on_editor_save(edit_index, winning_scores, losing_scores, quota, winning_weights, losing_weights, winning_player_ids, losing_player_ids):
+#	card_list.set_card_scores(edit_index, winning_scores, losing_scores)
+#	var match_data = MatchData.new()
+#	match_data.quota = quota
+#	match_data.winning_weights = winning_weights
+#	match_data.losing_weights = losing_weights
+#	match_data.winning_scores = winning_scores
+#	match_data.losing_scores = losing_scores
+#	match_data.winning_player_ids = winning_player_ids
+#	match_data.losing_player_ids = losing_player_ids
+#	save_match_data(match_data, edit_index)
+#	close_editor()
+
+func _on_editor_save(edit_index, match_data : MatchData):
+	card_list.set_card_scores(edit_index, match_data.winning_scores, match_data.losing_scores)
 	save_match_data(match_data, edit_index)
 	close_editor()
 

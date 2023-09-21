@@ -3,16 +3,16 @@ extends HBoxContainer
 signal weight_changed
 signal player_changed
 
-@onready var weight_input = $WeightInput
-@onready var score_label = $ScoreLabel
 @onready var player_option = $PanelContainer/Player/PlayerOption
 @onready var player_reset_button = $PanelContainer/Player/PlayerResetButton
+@onready var weight_input = $WeightInput
+@onready var score_label = $ScoreLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	weight_input.connect("text_changed", _on_weight_input_text_changed)
 	player_option.connect("item_selected", _on_player_option_item_selected)
 	player_reset_button.connect("pressed", _on_player_reset_button_pressed)
+	weight_input.connect("text_changed", _on_weight_input_text_changed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

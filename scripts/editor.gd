@@ -23,11 +23,16 @@ var losing_player_ids = ["", "", "", "", ""]
 
 var player_names = []
 
+var overrides = []
+var comments = ""
+
 @onready var cancel_button = $EditorPanel/VBoxContainer/TitleBar/CancelButton
 @onready var save_button = $EditorPanel/VBoxContainer/TitleBar/SaveButton
 @onready var quota_input = $EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/Quota/QuotaInput
 @onready var winning_player_inputs = $EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/WinningScoreTable/VBoxContainer/WinningPlayerInputs
 @onready var losing_player_inputs = $EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/TableContainer/LosingScoreTable/VBoxContainer/LosingPlayerInputs
+@onready var override_panel = $EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/OverridePanel
+@onready var comments_input = $EditorPanel/VBoxContainer/ScrollContainer/VBoxContainer/CommentsPanel/CommentsInput
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,7 +50,14 @@ func _ready():
 		player_input.connect("weight_changed", _on_losing_player_input_weight_changed)
 		player_input.connect("player_changed", _on_losing_player_changed)
 		player_input.set_score(-20)
-
+	
+	override_panel.connect("override_added", _override_panel_override_added)
+	override_panel.connect("override_player_changed", _override_panel_override_player_changed)
+	override_panel.connect("override_score_changed", _override_panel_override_score_changed)
+	override_panel.connect("override_relative_toggled", _override_panel_override_relative_toggled)
+	override_panel.connect("override_deleted", _override_panel_override_deleted)
+	
+	comments_input.connect("text_changed", _comments_input_text_changed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -55,7 +67,17 @@ func _on_cancel_button_pressed():
 	emit_signal("cancel")
 
 func _on_save_button_pressed():
-	emit_signal("save", edit_index, winning_scores, losing_scores, quota, winning_weights, losing_weights, winning_player_ids, losing_player_ids)
+	var match_data = MatchData.new()
+	match_data.quota = quota
+	match_data.winning_weights = winning_weights
+	match_data.losing_weights = losing_weights
+	match_data.winning_scores = winning_scores
+	match_data.losing_scores = losing_scores
+	match_data.winning_player_ids = winning_player_ids
+	match_data.losing_player_ids = losing_player_ids
+	match_data.overrides = overrides
+	match_data.comments = comments
+	emit_signal("save", edit_index, match_data)
 
 func _on_quota_input_text_changed(new_text):
 	if new_text == "":
@@ -87,6 +109,25 @@ func _on_winning_player_changed(index, player_id):
 
 func _on_losing_player_changed(index, player_id):
 	losing_player_ids[index] = player_id
+
+func _override_panel_override_added():
+	var override = {"player_id" : "", "score" : 0, "relative" : true}
+	overrides.append(override)
+
+func _override_panel_override_player_changed(index, player_id):
+	overrides[index].player_id = player_id
+
+func _override_panel_override_score_changed(index, score):
+	overrides[index].score = score
+
+func _override_panel_override_relative_toggled(index, relative):
+	overrides[index].relative = relative
+
+func _override_panel_override_deleted(index):
+	overrides.remove_at(index)
+
+func _comments_input_text_changed():
+	comments = comments_input.text
 
 func update_winning_score():
 	var total_weight = 0.0
@@ -183,6 +224,12 @@ func load_match_data():
 	losing_weights = match_data.losing_weights
 	losing_scores = match_data.losing_scores
 	losing_player_ids = match_data.losing_player_ids
+	overrides = match_data.overrides
+	if not overrides:
+		overrides = []
+	comments = match_data.comments
+	if not comments:
+		comments = ""
 	
 	if new:
 		quota_input.text = ""
@@ -221,3 +268,9 @@ func load_player_data():
 			winning_player_inputs.get_child(i).update_player_options(player_names, winning_player_ids[i])
 		for i in losing_player_inputs.get_child_count():
 			losing_player_inputs.get_child(i).update_player_options(player_names, losing_player_ids[i])
+	
+	override_panel.player_names = player_names
+	override_panel.clear_overrides()
+	override_panel.load_overrides(overrides)
+	
+	comments_input.text = comments
