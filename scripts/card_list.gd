@@ -1,14 +1,17 @@
 extends Control
 
-var scroll_offset = 0.0
-var scroll_direction = 0
-
 signal scrolling
 signal card_edit
 signal card_delete
 signal card_move_up
 signal card_move_down
 signal card_duplicate
+
+var scroll_offset = 0.0
+var scroll_direction = 0
+
+#@export var column_min_size = 512
+#@export var columns_max = 2
 
 @onready var scroll_container = $ScrollContainer
 @onready var card_container = $ScrollContainer/CardContainer
@@ -17,6 +20,7 @@ var card_scene = load("res://scenes/card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+#	connect("resized", _on_resized)
 	pass
 
 
@@ -28,6 +32,10 @@ func _process(_delta):
 
 func emit_scroll_signal():
 	emit_signal("scrolling", scroll_container.scroll_vertical)
+
+#func _on_resized():
+#	# Dynamic columns
+#	card_container.columns = clampi(floori(size.x / column_min_size), 1, columns_max)
 
 func _on_card_edit_pressed(index):
 	emit_signal("card_edit", index)

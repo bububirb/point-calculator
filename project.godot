@@ -30,7 +30,12 @@ window/size/viewport_width=1024
 window/size/viewport_height=1024
 window/size/window_width_override=640
 window/size/window_height_override=720
+window/per_pixel_transparency/allowed=true
 window/handheld/orientation=6
+
+[editor]
+
+movie_writer/movie_file="/mnt/windows/Users/User/Desktop/bubu/projects/godot/point-calculator-master/recordings/filtered_option_button.avi"
 
 [gui]
 

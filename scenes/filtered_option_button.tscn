@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://18k6amslyk1v"]
+
+[ext_resource type="Script" path="res://scripts/filtered_option_button.gd" id="2_b54nl"]
+[ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="2_lhnp3"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="3_xa165"]
+
+[sub_resource type="Image" id="Image_11b5r"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 224, 224, 224, 180, 224, 224, 224, 195, 231, 231, 231, 21, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 195, 224, 224, 224, 178, 255, 255, 255, 0, 255, 255, 255, 0, 224, 224, 224, 195, 224, 224, 224, 255, 224, 224, 224, 211, 231, 231, 231, 21, 255, 255, 255, 0, 255, 255, 255, 0, 232, 232, 232, 22, 224, 224, 224, 211, 224, 224, 224, 255, 224, 224, 224, 194, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 210, 224, 224, 224, 255, 224, 224, 224, 212, 232, 232, 232, 22, 232, 232, 232, 22, 224, 224, 224, 212, 224, 224, 224, 255, 224, 224, 224, 210, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 210, 224, 224, 224, 255, 224, 224, 224, 213, 224, 224, 224, 213, 224, 224, 224, 255, 224, 224, 224, 210, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 210, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 210, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 194, 224, 224, 224, 194, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 12,
+"mipmaps": false,
+"width": 12
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_twu88"]
+image = SubResource("Image_11b5r")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uob8e"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[node name="FilteredOptionButton" type="Button"]
+offset_right = 80.0
+offset_bottom = 32.0
+icon = SubResource("ImageTexture_twu88")
+alignment = 0
+icon_alignment = 2
+script = ExtResource("2_b54nl")
+
+[node name="Popup" type="Popup" parent="."]
+transparent_bg = true
+title = "Select Player"
+size = Vector2i(192, 128)
+transparent = true
+
+[node name="OptionPanel" type="PanelContainer" parent="Popup"]
+custom_minimum_size = Vector2(192, 128)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_lhnp3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/OptionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="FilterInput" type="LineEdit" parent="Popup/OptionPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Popup/OptionPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Options" type="VBoxContainer" parent="Popup/OptionPanel/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="AddOptionButton" type="Button" parent="Popup/OptionPanel/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uob8e")
+icon = ExtResource("3_xa165")
+alignment = 0
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="text_changed" from="Popup/OptionPanel/VBoxContainer/FilterInput" to="." method="_on_filter_input_text_changed"]
+[connection signal="text_submitted" from="Popup/OptionPanel/VBoxContainer/FilterInput" to="." method="_on_filter_input_text_submitted"]
+[connection signal="pressed" from="Popup/OptionPanel/VBoxContainer/AddOptionButton" to="." method="_on_add_option_button_pressed"]

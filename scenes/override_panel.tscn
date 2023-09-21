@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://xb36j1n1p3wm"]
+
+[ext_resource type="Script" path="res://scripts/override_panel.gd" id="1_sbgso"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="3_v11wo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjmfp"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[node name="OverridePanel" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjmfp")
+script = ExtResource("1_sbgso")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="OverrideEntryContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AddOverrideButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(168, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Add Override"
+icon = ExtResource("3_v11wo")

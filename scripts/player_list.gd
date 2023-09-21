@@ -56,6 +56,10 @@ func _on_add_button_pressed():
 			player_item_list.add_item(add_input.text)
 			session_graph.plot_point(0, add_input.text)
 			add_input.text = ""
+			names[id] = id
+			scores[id] = 0
+			global_scores[id] = 0
+			matches[id] = 0
 
 func _on_add_input_text_submitted(new_text):
 	if new_text != "":
@@ -64,6 +68,10 @@ func _on_add_input_text_submitted(new_text):
 			player_item_list.add_item(new_text)
 			session_graph.plot_point(0, new_text)
 			add_input.text = ""
+			names[id] = id
+			scores[id] = 0
+			global_scores[id] = 0
+			matches[id] = 0
 
 func _on_remove_button_pressed():
 	for idx in player_item_list.get_selected_items():
@@ -147,6 +155,14 @@ func load_player_stats():
 					if scores.has(id):
 						scores[id] = scores[id] + match_data.losing_scores[i]
 						match_scores[id] = match_data.losing_scores[i]
+					
+				for override in match_data.overrides:
+					var id = override.player_id
+					if scores.has(id):
+						if override.relative:
+							scores[id] += override.score
+						else:
+							scores[id] = override.score
 		# Tally global scores
 		global_scores = Tally.tally_all_sessions(global_scores)
 		matches = Tally.tally_matches_per_player(matches)

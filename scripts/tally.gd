@@ -11,19 +11,26 @@ func tally_session(session_name):
 	var target_match_data_path = Globals.SESSION_DATA_PATH + session_name + "/match_data/"
 	var tally_scores = {}
 	for file in Globals.list_match_data(session_name):
-		# Todo: Sort by naturalnocasecmp
 		match_data = ResourceLoader.load(target_match_data_path + file)
-		
+
 		for i in match_data.winning_scores.size():
 			var id = match_data.winning_player_ids[i]
 			if not tally_scores.has(id):
 				tally_scores[id] = 0
 			tally_scores[id] += match_data.winning_scores[i]
-			
+
 			id = match_data.losing_player_ids[i]
 			if not tally_scores.has(id):
 				tally_scores[id] = 0
 			tally_scores[id] += match_data.losing_scores[i]
+		for override in match_data.overrides:
+			var id = override.player_id
+			if not tally_scores.has(id):
+				tally_scores[id] = 0
+			if override.relative:
+				tally_scores[id] += override.score
+			else:
+				tally_scores[id] = override.score
 	return tally_scores
 
 func tally_all_sessions(tally_scores : Dictionary):
@@ -33,26 +40,23 @@ func tally_all_sessions(tally_scores : Dictionary):
 		var match_data : MatchData
 		var target_match_data_path = Globals.SESSION_DATA_PATH + session + "/match_data/"
 		for file in Globals.list_match_data(session):
-			# Todo: Sort by naturalnocasecmp
 			match_data = ResourceLoader.load(target_match_data_path + file)
-			
 			for i in match_data.winning_scores.size():
 				var id = match_data.winning_player_ids[i]
 				if id != "":
-#					if not tally_scores.has(id):
-#						tally_scores[id] = 0
-#					tally_scores[id] = tally_function.call(tally_scores[id], match_data.winning_scores[i])
-					
 					if tally_scores.has(id):
 						tally_scores[id] = tally_function.call(tally_scores[id], match_data.winning_scores[i])
-				
 				id = match_data.losing_player_ids[i]
 				if id != "":
-#					if not tally_scores.has(id):
-#						tally_scores[id] = 0
-#					tally_scores[id] = tally_function.call(tally_scores[id], match_data.losing_scores[i])
 					if tally_scores.has(id):
 						tally_scores[id] = tally_function.call(tally_scores[id], match_data.losing_scores[i])
+			for override in match_data.overrides:
+				var id = override.player_id
+				if tally_scores.has(id):
+					if override.relative:
+						tally_scores[id] += override.score
+					else:
+						tally_scores[id] = override.score
 	# Round tally results
 	for key in tally_scores.keys():
 		tally_scores[key] = round(tally_scores[key])
