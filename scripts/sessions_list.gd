@@ -136,11 +136,8 @@ func _on_show_button_pressed():
 func _on_player_list_cancel():
 	close_player_list()
 
-func _on_player_list_save(names, scores, tally_function):
-	var player_data = PlayerData.new()
-	player_data.names = names
-	player_data.scores = scores
-	player_data.tally_method = tally_function
+
+func _on_player_list_save(player_data):
 	var dir = DirAccess.open(Globals.SESSION_DATA_PATH)
 	if dir:
 		ResourceSaver.save(player_data, Globals.SESSION_DATA_PATH + "player_data.tres")

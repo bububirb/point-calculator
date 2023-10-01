@@ -52,7 +52,8 @@ func list_session_folders():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				session_folders.append(file_name)
+				if dir.file_exists(file_name + "/session_data.tres"):
+					session_folders.append(file_name)
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")

@@ -8,6 +8,8 @@ var is_selected = false
 @onready var local_score_label = $Labels/LocalScoreLabel
 @onready var global_score_label = $Labels/GlobalScoreLabel
 @onready var matches_label = $Labels/MatchesLabel
+@onready var wins_label = $Labels/WinsLabel
+@onready var losses_label = $Labels/LossesLabel
 @onready var selection_draw = $SelectionDraw
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +41,12 @@ func show_global_score(visibility = true):
 func show_matches(visibility = true):
 	matches_label.visible = visibility
 
+func show_wins(visibility = true):
+	wins_label.visible = visibility
+
+func show_losses(visibility = true):
+	losses_label.visible = visibility
+
 func set_player_name(player_name):
 	player_name_label.text = player_name
 
@@ -51,6 +59,12 @@ func set_global_score(global_score):
 func set_matches(matches):
 	matches_label.text = str(matches)
 
+func set_wins(wins):
+	wins_label.text = str(wins)
+
+func set_losses(losses):
+	losses_label.text = str(losses)
+
 func get_player_name():
 	return player_name_label.text
 
@@ -62,6 +76,12 @@ func get_global_score():
 
 func get_matches():
 	return int(matches_label.text)
+
+func get_wins():
+	return int(wins_label.text)
+
+func get_losses():
+	return int(losses_label.text)
 
 func draw_selection(value = true):
 	selection_draw.visible = value

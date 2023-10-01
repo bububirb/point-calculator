@@ -1,5 +1,7 @@
 extends Control
 
+signal tween_finished
+
 var MATCH_DATA_PATH : String
 var PLAYER_DATA_PATH : String
 
@@ -62,6 +64,8 @@ func _fit_display_cutouts():
 
 func _on_card_list_card_edit(index):
 	open_editor()
+#	# Deferred editor loading
+#	await tween_finished
 	set_edit_index(index)
 	editor.load_match_data()
 	editor.load_player_data()
@@ -94,19 +98,6 @@ func _on_editor_cancel():
 		card_list.delete_card(editor.edit_index)
 	close_editor()
 
-#func _on_editor_save(edit_index, winning_scores, losing_scores, quota, winning_weights, losing_weights, winning_player_ids, losing_player_ids):
-#	card_list.set_card_scores(edit_index, winning_scores, losing_scores)
-#	var match_data = MatchData.new()
-#	match_data.quota = quota
-#	match_data.winning_weights = winning_weights
-#	match_data.losing_weights = losing_weights
-#	match_data.winning_scores = winning_scores
-#	match_data.losing_scores = losing_scores
-#	match_data.winning_player_ids = winning_player_ids
-#	match_data.losing_player_ids = losing_player_ids
-#	save_match_data(match_data, edit_index)
-#	close_editor()
-
 func _on_editor_save(edit_index, match_data : MatchData):
 	card_list.set_card_scores(edit_index, match_data.winning_scores, match_data.losing_scores)
 	save_match_data(match_data, edit_index)
@@ -126,15 +117,10 @@ func load_data():
 func _on_player_list_cancel():
 	close_player_list()
 
-func _on_player_list_save(names, scores, tally_function):
-	var player_data = PlayerData.new()
-	player_data.names = names
-	player_data.scores = scores
-	player_data.tally_method = tally_function
-	var dir = DirAccess.open(PLAYER_DATA_PATH)
-	if not dir:
-		dir = DirAccess.open(Globals.SESSION_DATA_PATH) # Todo: Rewrite for proper handling of missing directories
-	ResourceSaver.save(player_data, PLAYER_DATA_PATH + "player_data.tres")
+func _on_player_list_save(player_data):
+	var dir = DirAccess.open(Globals.SESSION_DATA_PATH)
+	if dir:
+		ResourceSaver.save(player_data, Globals.SESSION_DATA_PATH + "player_data.tres")
 	close_player_list()
 
 func _on_session_option_item_selected(index):
@@ -149,7 +135,9 @@ func open_editor():
 	tween.tween_property(card_list, "size_flags_stretch_ratio", 0.0, tween_duration)
 	tween.tween_property(menu_bar, "custom_minimum_size:y", 0.0, tween_duration)
 	new_button.disabled = true
-#	new_button.hide_button()
+#	# For deferred editor loading
+#	await tween.finished
+#	emit_signal("tween_finished")
 
 func close_editor():
 	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
@@ -157,7 +145,6 @@ func close_editor():
 	tween.tween_property(card_list, "size_flags_stretch_ratio", 1.0, tween_duration)
 	tween.tween_property(menu_bar, "custom_minimum_size:y", menu_bar_height, tween_duration)
 	new_button.disabled = false
-#	new_button.show_button()
 
 func open_player_list():
 	players_button.disabled = true

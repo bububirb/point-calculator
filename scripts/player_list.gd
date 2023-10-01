@@ -41,13 +41,12 @@ func _on_cancel_button_pressed():
 	emit_signal("cancel")
 
 func _on_save_button_pressed():
-	names = {}
-	for idx in player_item_list.item_count:
-		var player_name = player_item_list.get_player_name(idx)
-		names[player_name] = player_name
-		var player_score = player_item_list.get_local_score(idx)
-		scores[player_name] = player_score
-	emit_signal("save", names, scores, tally_function.get_method())
+	var player_data = PlayerData.new()
+	player_data.names = names
+	player_data.scores = global_scores
+	player_data.matches = matches
+	player_data.tally_method = tally_function.get_method()
+	emit_signal("save", player_data)
 
 func _on_add_button_pressed():
 	if add_input.text != "":
@@ -110,7 +109,10 @@ func load_player_data():
 	names = player_data.names
 	scores = player_data.scores
 	global_scores = player_data.scores.duplicate()
-	matches = player_data.scores.duplicate()
+	if player_data.get("matches"):
+		matches = player_data.matches
+	else:
+		matches = player_data.scores.duplicate()
 	tally_function = Tally.get(player_data.tally_method)
 	if tally_function:
 		Tally.tally_function = tally_function
@@ -165,7 +167,7 @@ func load_player_stats():
 							scores[id] = override.score
 		# Tally global scores
 		global_scores = Tally.tally_all_sessions(global_scores)
-		matches = Tally.tally_matches_per_player(matches)
+		matches = Tally.tally_matches(matches)
 		update_session_graph()
 
 func load_player_item_list():
