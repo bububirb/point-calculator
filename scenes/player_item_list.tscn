@@ -106,11 +106,60 @@ grow_vertical = 2
 texture = ExtResource("3_tq2wr")
 stretch_mode = 3
 
-[node name="LocalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+[node name="WinsSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Score"
+text = "Wins"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/WinsSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_tq2wr")
+stretch_mode = 3
+
+[node name="LossesSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_q0wgs")
+text = "Losses"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/LossesSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_tq2wr")
+stretch_mode = 3
+
+[node name="LocalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_q0wgs")
+text = "Local Score"
 flat = true
 alignment = 0
 icon_alignment = 2
@@ -130,11 +179,10 @@ texture = ExtResource("3_tq2wr")
 stretch_mode = 3
 
 [node name="GlobalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Tally Score"
+text = "Score"
 flat = true
 alignment = 0
 icon_alignment = 2
@@ -170,5 +218,7 @@ theme_override_constants/separation = 0
 
 [connection signal="pressed" from="VBoxContainer/Panel/Labels/PlayerNameSortButton" to="." method="_on_sort_button_pressed" binds= ["player_name"]]
 [connection signal="pressed" from="VBoxContainer/Panel/Labels/MatchesSortButton" to="." method="_on_sort_button_pressed" binds= ["matches"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/WinsSortButton" to="." method="_on_sort_button_pressed" binds= ["wins"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/LossesSortButton" to="." method="_on_sort_button_pressed" binds= ["losses"]]
 [connection signal="pressed" from="VBoxContainer/Panel/Labels/LocalScoreSortButton" to="." method="_on_sort_button_pressed" binds= ["local_score"]]
 [connection signal="pressed" from="VBoxContainer/Panel/Labels/GlobalScoreSortButton" to="." method="_on_sort_button_pressed" binds= ["global_score"]]
