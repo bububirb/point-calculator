@@ -86,6 +86,35 @@ func tally_matches_per_player(players : Dictionary):
 	players = sort_dict(players)
 	return players
 
+func tally_matches(players : Dictionary):
+	for key in players.keys():
+		players[key] = {
+			"total": 0,
+			"wins": 0,
+			"losses": 0
+		}
+	for session in Globals.list_ordered_session_folders():
+		var match_data : MatchData
+		var target_match_data_path = Globals.SESSION_DATA_PATH + session + "/match_data/"
+		for file in Globals.list_match_data(session):
+			# Todo: Sort by naturalnocasecmp
+			match_data = ResourceLoader.load(target_match_data_path + file)
+			
+			for i in match_data.winning_scores.size():
+				var id = match_data.winning_player_ids[i]
+				if id != "":
+					if players.has(id):
+						players[id].total += 1
+						players[id].wins += 1
+				
+				id = match_data.losing_player_ids[i]
+				if id != "":
+					if players.has(id):
+						players[id].total += 1
+						players[id].losses += 1
+	players = sort_dict(players)
+	return players
+
 func select_tally_option(index):
 	tally_function = tally_options[index]
 	return tally_function
