@@ -3,6 +3,8 @@ extends HBoxContainer
 signal weight_changed
 signal player_changed
 
+const TWEEN_DURATION = 0.25
+
 @onready var player_option = $PanelContainer/Player/PlayerOption
 @onready var player_reset_button = $PanelContainer/Player/PlayerResetButton
 @onready var weight_input = $WeightInput
@@ -42,12 +44,25 @@ func set_score(score):
 	else:
 		score_label.text = str(score)
 
-func update_player_options(player_names, selection_id):
+func set_loading(loading):
+	if loading:
+		modulate.a = 0.0
+	else:
+		create_tween().tween_property(self, "modulate:a", 1.0, TWEEN_DURATION)
+
+func update_player_options(player_names, pinned, selection_id):
 	player_option.clear()
-	for player_name in player_names:
-		player_option.add_item(player_name)
+	for i in player_names.size():
+		player_option.add_item(player_names[i], pinned[i])
 	var selection = player_names.find(selection_id)
 	if selection < player_option.item_count:
 		player_option.select(selection)
 	else:
 		player_option.select(-1)
+	player_option.sort_options()
+
+func refresh_player_options(player_names, pinned):
+	player_option.clear(false)
+	for i in player_names.size():
+		player_option.add_item(player_names[i], pinned[i])
+	player_option.sort_options()

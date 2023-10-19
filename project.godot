@@ -10,14 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Point Calculator"
-run/main_scene="res://scenes/sessions_list.tscn"
+config/name="Scorekeeper"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
-boot_splash/image="res://assets/icons/splash.png"
-config/icon="res://icon.svg"
-config/windows_native_icon="res://assets/icons/windows-icons/icon-windows.ico"
+boot_splash/image="res://assets/icons/app_icons/splash.png"
+boot_splash/fullsize=false
+config/icon="res://assets/icons/platform_icons/platform_icon_128px.svg"
+config/windows_native_icon="res://assets/icons/platform_icons/windows_icon.ico"
 
 [autoload]
 
@@ -26,24 +27,30 @@ Tally="*res://scripts/tally.gd"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=1024
-window/size/window_width_override=640
-window/size/window_height_override=720
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/energy_saving/keep_screen_on=false
 window/per_pixel_transparency/allowed=true
 window/handheld/orientation=6
 
 [editor]
 
-movie_writer/movie_file="/mnt/windows/Users/User/Desktop/bubu/projects/godot/point-calculator-master/recordings/filtered_option_button.avi"
+movie_writer/mjpeg_quality=0.9
+movie_writer/movie_file="/mnt/windows/Users/User/Desktop/bubu/projects/godot/point-calculator-master/recordings/players_panel_pinning/frame.png"
 
 [gui]
 
 theme/custom="res://resources/themes/default_theme_desktop.tres"
-theme/custom_font="res://resources/fonts/roboto_regular.ttf"
+
+[input]
+
+quit={
+"deadzone": 0.5,
+"events": [null, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"echo":false,"script":null)
+]
+}
 
 [rendering]
 
-renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.0705882, 0.0705882, 0.0705882, 1)

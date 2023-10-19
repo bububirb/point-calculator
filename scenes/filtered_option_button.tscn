@@ -1,20 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://18k6amslyk1v"]
 
+[ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down.svg" id="1_ibae7"]
 [ext_resource type="Script" path="res://scripts/filtered_option_button.gd" id="2_b54nl"]
 [ext_resource type="StyleBox" uid="uid://dnp3en0ribwes" path="res://resources/styles/card_desktop.tres" id="2_lhnp3"]
-[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="3_xa165"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new.svg" id="3_xa165"]
 
-[sub_resource type="Image" id="Image_faq81"]
-data = {
-"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 224, 224, 224, 180, 224, 224, 224, 195, 231, 231, 231, 21, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 195, 224, 224, 224, 178, 255, 255, 255, 0, 255, 255, 255, 0, 224, 224, 224, 195, 224, 224, 224, 255, 224, 224, 224, 211, 231, 231, 231, 21, 255, 255, 255, 0, 255, 255, 255, 0, 232, 232, 232, 22, 224, 224, 224, 211, 224, 224, 224, 255, 224, 224, 224, 194, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 210, 224, 224, 224, 255, 224, 224, 224, 212, 232, 232, 232, 22, 232, 232, 232, 22, 224, 224, 224, 212, 224, 224, 224, 255, 224, 224, 224, 210, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 210, 224, 224, 224, 255, 224, 224, 224, 213, 224, 224, 224, 213, 224, 224, 224, 255, 224, 224, 224, 210, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 210, 224, 224, 224, 255, 224, 224, 224, 255, 224, 224, 224, 210, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 231, 231, 231, 21, 224, 224, 224, 194, 224, 224, 224, 194, 230, 230, 230, 20, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
-"format": "RGBA8",
-"height": 12,
-"mipmaps": false,
-"width": 12
-}
-
-[sub_resource type="ImageTexture" id="ImageTexture_twu88"]
-image = SubResource("Image_faq81")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r3dau"]
+content_margin_right = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uob8e"]
 content_margin_left = 4.0
@@ -25,7 +17,7 @@ content_margin_bottom = 4.0
 [node name="FilteredOptionButton" type="Button"]
 offset_right = 80.0
 offset_bottom = 32.0
-icon = SubResource("ImageTexture_twu88")
+icon = ExtResource("1_ibae7")
 alignment = 0
 icon_alignment = 2
 script = ExtResource("2_b54nl")
@@ -52,9 +44,14 @@ theme_override_constants/separation = 0
 [node name="FilterInput" type="LineEdit" parent="Popup/OptionPanel/VBoxContainer"]
 layout_mode = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="Popup/OptionPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
 [node name="ScrollContainer" type="ScrollContainer" parent="Popup/OptionPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_r3dau")
 horizontal_scroll_mode = 0
 
 [node name="Options" type="VBoxContainer" parent="Popup/OptionPanel/VBoxContainer/ScrollContainer"]

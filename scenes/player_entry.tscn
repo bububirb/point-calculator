@@ -1,32 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd8trbqcnecci"]
+[gd_scene load_steps=7 format=3 uid="uid://cd8trbqcnecci"]
 
 [ext_resource type="Script" path="res://scripts/player_entry.gd" id="1_a2n22"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c72n6"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3242j"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.13, 0.13, 0.13, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn52r"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.17, 0.17, 0.17, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-corner_detail = 5
+[ext_resource type="StyleBox" uid="uid://l3nucxgb3c0a" path="res://resources/styles/entry_normal.tres" id="1_xrurl"]
+[ext_resource type="StyleBox" uid="uid://c75qfiouf23bw" path="res://resources/styles/entry_hover.tres" id="2_2ydx5"]
+[ext_resource type="StyleBox" uid="uid://d2que5k8inqpx" path="res://resources/styles/entry_pressed.tres" id="3_qup5v"]
+[ext_resource type="Texture2D" uid="uid://bb3q27daqx1e2" path="res://assets/icons/pin_small.svg" id="5_rf2ip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th2br"]
 content_margin_left = 4.0
@@ -42,11 +20,12 @@ corner_detail = 5
 
 [node name="PlayerEntry" type="Button"]
 custom_minimum_size = Vector2(0, 32)
-offset_right = 1024.0
-offset_bottom = 32.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_c72n6")
-theme_override_styles/hover = SubResource("StyleBoxFlat_3242j")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hn52r")
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/normal = ExtResource("1_xrurl")
+theme_override_styles/hover = ExtResource("2_2ydx5")
+theme_override_styles/pressed = ExtResource("3_qup5v")
 script = ExtResource("1_a2n22")
 
 [node name="SelectionDraw" type="Panel" parent="."]
@@ -77,41 +56,9 @@ size_flags_vertical = 1
 text = "Player"
 vertical_alignment = 1
 
-[node name="MatchesLabel" type="Label" parent="Labels"]
+[node name="PinIcon" type="TextureRect" parent="Labels"]
 visible = false
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "0"
-vertical_alignment = 1
-
-[node name="WinsLabel" type="Label" parent="Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "0"
-vertical_alignment = 1
-
-[node name="LossesLabel" type="Label" parent="Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "0"
-vertical_alignment = 1
-
-[node name="LocalScoreLabel" type="Label" parent="Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "0"
-vertical_alignment = 1
-
-[node name="GlobalScoreLabel" type="Label" parent="Labels"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "0"
-vertical_alignment = 1
+texture = ExtResource("5_rf2ip")
+stretch_mode = 3

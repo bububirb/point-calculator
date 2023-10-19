@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://3g0ivdxedn81"]
+
+[ext_resource type="FontFile" uid="uid://cxh3pubwognip" path="res://resources/fonts/figtree_medium.ttf" id="1_fe3n1"]
+
+[resource]
+base_font = ExtResource("1_fe3n1")
+opentype_features = {
+1667329140: 0
+}

@@ -9,6 +9,7 @@ signal override_deleted
 var override_entry_scene = load("res://scenes/override_entry.tscn")
 
 var player_names = []
+var pinned = []
 
 @onready var add_override_button = $VBoxContainer/AddOverrideButton
 @onready var override_entry_container = $VBoxContainer/OverrideEntryContainer
@@ -22,7 +23,7 @@ func _process(_delta):
 	pass
 
 func _on_add_override_button_pressed():
-	add_override().update_player_options(player_names, "")
+	add_override().update_player_options(player_names, pinned, "")
 	emit_signal("override_added")
 
 func add_override():
@@ -37,7 +38,7 @@ func add_override():
 func load_overrides(overrides):
 	for override in overrides:
 		var override_entry = add_override()
-		override_entry.update_player_options(player_names, override.player_id)
+		override_entry.update_player_options(player_names, pinned, override.player_id)
 		override_entry.set_score(override.score)
 		override_entry.set_relative(override.relative)
 
@@ -56,3 +57,7 @@ func _on_override_entry_relative_toggled(index, relative):
 
 func _on_override_entry_deleted(index):
 	emit_signal("override_deleted", index)
+
+func refresh_player_options():
+	for override_entry in override_entry_container.get_children():
+		override_entry.refresh_player_options(player_names, pinned)

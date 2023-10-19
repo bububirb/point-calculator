@@ -1,68 +1,30 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgltqjf5he0rm"]
+[gd_scene load_steps=10 format=3 uid="uid://ebt3esk7gclh"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_nwuau"]
-[ext_resource type="PackedScene" uid="uid://brj7b34jopmx8" path="res://scenes/card_list.tscn" id="1_wgoid"]
-[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="2_j3ric"]
-[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="2_qit71"]
-[ext_resource type="PackedScene" uid="uid://3c6msb02l5p2" path="res://scenes/editor.tscn" id="4_556hw"]
-[ext_resource type="Texture2D" uid="uid://bgqnoiiska8p3" path="res://assets/icons/new.svg" id="4_t5njr"]
-[ext_resource type="FontFile" uid="uid://55xc72uprrn7" path="res://resources/fonts/product_sans_bold_oversampled.ttf" id="4_uf7jg"]
-[ext_resource type="Script" path="res://scripts/action_button.gd" id="5_lsbci"]
-[ext_resource type="PackedScene" uid="uid://dyvn80hyih8aq" path="res://scenes/player_list.tscn" id="6_11thy"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_4qolv"]
+[ext_resource type="PackedScene" uid="uid://bkjncy4ae46ty" path="res://scenes/players_panel.tscn" id="1_usx5d"]
+[ext_resource type="PackedScene" uid="uid://cbp6ir3ijuft5" path="res://scenes/sessions_panel.tscn" id="2_kcwdb"]
+[ext_resource type="PackedScene" uid="uid://do2syaxh5w7dp" path="res://scenes/editor_panel.tscn" id="4_nj8go"]
+[ext_resource type="PackedScene" uid="uid://dyna0h7wa5ryw" path="res://scenes/stats_panel.tscn" id="5_ilvmv"]
+[ext_resource type="PackedScene" uid="uid://b80fpoy377dm0" path="res://scenes/properties_panel.tscn" id="6_227dw"]
+[ext_resource type="Texture2D" uid="uid://dd0ve1mefdrdc" path="res://assets/icons/app_icons/app_icon_64px.svg" id="7_vnrqp"]
+[ext_resource type="FontVariation" uid="uid://bt4v0q31h0w7t" path="res://resources/fonts/default_bold.tres" id="8_yq2gl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_geier"]
-content_margin_left = 15.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q058f"]
+content_margin_left = 16.0
 content_margin_top = 16.0
-content_margin_right = 15.0
+content_margin_right = 16.0
 content_margin_bottom = 16.0
-bg_color = Color(0.15, 0.15, 0.15, 1)
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
-corner_detail = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs6uk"]
-content_margin_left = 15.0
-content_margin_top = 16.0
-content_margin_right = 15.0
-content_margin_bottom = 16.0
-bg_color = Color(0.223529, 0.223529, 0.223529, 1)
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
-corner_detail = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4a2ht"]
-content_margin_left = 15.0
-content_margin_top = 16.0
-content_margin_right = 15.0
-content_margin_bottom = 16.0
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
-corner_detail = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ievq"]
-content_margin_left = 15.0
-content_margin_top = 16.0
-content_margin_right = 15.0
-content_margin_bottom = 16.0
-bg_color = Color(0.101961, 0.101961, 0.101961, 1)
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
-corner_detail = 12
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6r0x"]
-content_margin_left = 15.0
-content_margin_top = 16.0
-content_margin_right = 15.0
-content_margin_bottom = 16.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258824, 0.258824, 0.258824, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -71,23 +33,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nwuau")
+script = ExtResource("1_4qolv")
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="MenuBar" type="Control" parent="MainContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MenuBar"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -95,67 +43,145 @@ anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayersButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
-custom_minimum_size = Vector2(96, 0)
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-text = "Players"
+flat = true
 
-[node name="SessionLabel" type="Label" parent="MainContainer/MenuBar/HBoxContainer"]
+[node name="File" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+transparent_bg = true
+size = Vector2i(168, 128)
+item_count = 5
+item_0/text = "Import"
+item_0/id = 0
+item_1/text = "Export"
+item_1/id = 1
+item_2/text = "Open Data Directory"
+item_2/id = 2
+item_3/text = ""
+item_3/id = 3
+item_3/separator = true
+item_4/text = "Quit"
+item_4/id = 4
+
+[node name="Help" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+transparent_bg = true
+item_count = 1
+item_0/text = "About"
+item_0/id = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 1000
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_j3ric")
-text = "Session"
-horizontal_alignment = 1
+split_offset = 240
 
-[node name="NewButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-text = "New"
-icon = ExtResource("2_qit71")
-
-[node name="CardList" parent="MainContainer" instance=ExtResource("1_wgoid")]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Editor" parent="MainContainer" instance=ExtResource("4_556hw")]
+[node name="LeftTabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer"]
 clip_contents = true
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
-size_flags_stretch_ratio = 0.0
 
-[node name="PlayerList" parent="MainContainer" instance=ExtResource("6_11thy")]
-clip_contents = true
+[node name="Players" parent="VBoxContainer/HSplitContainer/HSplitContainer/LeftTabContainer" instance=ExtResource("1_usx5d")]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
 
-[node name="NewButton" type="Button" parent="."]
+[node name="CenterTabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer/HSplitContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+
+[node name="Sessions" parent="VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer" instance=ExtResource("2_kcwdb")]
+layout_mode = 2
+
+[node name="Editor" parent="VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer" instance=ExtResource("4_nj8go")]
 visible = false
-clip_contents = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+layout_mode = 2
+
+[node name="Stats" parent="VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer" instance=ExtResource("5_ilvmv")]
+visible = false
+layout_mode = 2
+
+[node name="RightTabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="Properties" parent="VBoxContainer/HSplitContainer/RightTabContainer" instance=ExtResource("6_227dw")]
+layout_mode = 2
+
+[node name="AboutPopup" type="Popup" parent="."]
+transparent_bg = true
+initial_position = 2
+size = Vector2i(287, 139)
+
+[node name="Panel" type="PanelContainer" parent="AboutPopup"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -144.0
-offset_right = -24.0
-offset_bottom = -72.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_uf7jg")
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q058f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AboutPopup/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="AboutPopup/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("7_vnrqp")
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopup/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="AboutPopup/Panel/HBoxContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.8)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("8_yq2gl")
+theme_override_font_sizes/font_size = 24
+text = "Scorekeeper"
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopup/Panel/HBoxContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VersionLabel" type="Label" parent="AboutPopup/Panel/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_geier")
-theme_override_styles/hover = SubResource("StyleBoxFlat_gs6uk")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_4a2ht")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_8ievq")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t6r0x")
-text = "New"
-icon = ExtResource("4_t5njr")
-alignment = 2
-clip_text = true
-expand_icon = true
-script = ExtResource("5_lsbci")
+text = "1.0.0 Beta"
+
+[node name="DateLabel" type="Label" parent="AboutPopup/Panel/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Date: 2023-10-20"
+
+[node name="BranchLabel" type="Label" parent="AboutPopup/Panel/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Branch: Master"
+
+[node name="ExportFileDialog" type="FileDialog" parent="."]
+title = "Export"
+initial_position = 2
+size = Vector2i(879, 480)
+ok_button_text = "Export"
+access = 2
+filters = PackedStringArray("*.zip")
+
+[node name="ImportFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(771, 480)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.zip")

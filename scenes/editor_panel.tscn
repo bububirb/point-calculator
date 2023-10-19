@@ -1,0 +1,182 @@
+[gd_scene load_steps=12 format=3 uid="uid://do2syaxh5w7dp"]
+
+[ext_resource type="Script" path="res://scripts/editor_panel.gd" id="1_f8o8f"]
+[ext_resource type="FontVariation" uid="uid://bt4v0q31h0w7t" path="res://resources/fonts/default_bold.tres" id="3_sxe4t"]
+[ext_resource type="Texture2D" uid="uid://bplcma73efn10" path="res://assets/icons/return.svg" id="4_awv08"]
+[ext_resource type="Texture2D" uid="uid://djeetpmjnhusy" path="res://assets/icons/menu.svg" id="4_cb76y"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new.svg" id="4_p2x4t"]
+[ext_resource type="PackedScene" uid="uid://3c6msb02l5p2" path="res://scenes/match_editor.tscn" id="7_o3tbi"]
+[ext_resource type="StyleBox" uid="uid://ixt5lyof837o" path="res://resources/styles/background_panel.tres" id="7_y3fjf"]
+[ext_resource type="PackedScene" uid="uid://qqh1csi5d2or" path="res://scenes/match_list.tscn" id="8_sdw3f"]
+[ext_resource type="Texture2D" uid="uid://1rb8b2qgcr1t" path="res://assets/icons/up.svg" id="9_fs4si"]
+[ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down.svg" id="10_jj7fv"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete.svg" id="11_d4yxv"]
+
+[node name="Editor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f8o8f")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MenuBar" type="Control" parent="MainContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MenuBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+tooltip_text = "Back to Sessions"
+theme_type_variation = &"ToolbarButton"
+text = "Back"
+icon = ExtResource("4_awv08")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MenuBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SessionNameLabel" type="Label" parent="MainContainer/MenuBar/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_sxe4t")
+
+[node name="MarginContainer3" type="MarginContainer" parent="MainContainer/MenuBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NewButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+tooltip_text = "Add New Match"
+theme_type_variation = &"ToolbarButton"
+text = "New"
+icon = ExtResource("4_p2x4t")
+
+[node name="EditButton" type="Button" parent="MainContainer/MenuBar/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Edit Match List"
+theme_type_variation = &"ToolbarButton"
+toggle_mode = true
+icon = ExtResource("4_cb76y")
+
+[node name="MatchListContainer" type="Panel" parent="MainContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_y3fjf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MatchListContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="MatchList" parent="MainContainer/MatchListContainer/HBoxContainer" instance=ExtResource("8_sdw3f")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BlankLabel" type="CenterContainer" parent="MainContainer/MatchListContainer/HBoxContainer/MatchList"]
+visible = false
+modulate = Color(1, 1, 1, 0.8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MatchListContainer/HBoxContainer/MatchList/BlankLabel"]
+layout_mode = 2
+
+[node name="NoOpenSessionLabel" type="Label" parent="MainContainer/MatchListContainer/HBoxContainer/MatchList/BlankLabel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_sxe4t")
+theme_override_font_sizes/font_size = 24
+text = "No Open Session"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MainContainer/MatchListContainer/HBoxContainer/MatchList/BlankLabel/VBoxContainer"]
+layout_mode = 2
+text = "Go to Sessions Tab to open a session"
+horizontal_alignment = 1
+
+[node name="EditBar" type="Control" parent="MainContainer/MatchListContainer/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MatchListContainer/HBoxContainer/EditBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MatchListContainer/HBoxContainer/EditBar/MarginContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="MoveUpButton" type="Button" parent="MainContainer/MatchListContainer/HBoxContainer/EditBar/MarginContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Move Up
+Moves selected match up"
+icon = ExtResource("9_fs4si")
+
+[node name="MoveDownButton" type="Button" parent="MainContainer/MatchListContainer/HBoxContainer/EditBar/MarginContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Move Down
+Moves selected match down"
+icon = ExtResource("10_jj7fv")
+
+[node name="DeleteButton" type="Button" parent="MainContainer/MatchListContainer/HBoxContainer/EditBar/MarginContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Move to Trash
+Moves selected match to the system trash"
+theme_type_variation = &"DangerButton"
+icon = ExtResource("11_d4yxv")
+
+[node name="MatchEditor" parent="MainContainer" instance=ExtResource("7_o3tbi")]
+clip_contents = true
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="DeleteConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(311, 100)
+ok_button_text = "Delete"
+dialog_text = "Move selected match to the system trash?"

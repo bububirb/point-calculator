@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://kygn726f428r"]
+
+[ext_resource type="Script" path="res://scripts/attribute_item_list.gd" id="1_iyeqa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_taq02"]
+content_margin_right = 4.0
+
+[node name="AttributeItemList" type="VBoxContainer"]
+theme_override_constants/separation = 0
+script = ExtResource("1_iyeqa")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_taq02")
+
+[node name="AttributeEntryContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0

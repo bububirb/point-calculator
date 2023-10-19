@@ -5,6 +5,8 @@ signal score_changed
 signal relative_toggled
 signal deleted
 
+const TWEEN_DURATION = 0.25
+
 @onready var player_option = $PlayerOption
 @onready var override_input = $HBoxContainer/OverrideInput
 @onready var relative_check_box = $HBoxContainer/RelativeCheckBox
@@ -16,6 +18,7 @@ func _ready():
 	delete_button.connect("pressed", _on_delete_button_pressed)
 	override_input.connect("text_changed", _on_override_input_text_changed)
 	relative_check_box.connect("toggled", _on_relative_check_box_toggled)
+	expand()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -42,12 +45,23 @@ func set_score(score):
 func set_relative(toggled):
 	relative_check_box.button_pressed = toggled
 
-func update_player_options(player_names, selection_id):
+func update_player_options(player_names, pinned, selection_id):
 	player_option.clear()
-	for player_name in player_names:
-		player_option.add_item(player_name)
+	for i in player_names.size():
+		player_option.add_item(player_names[i], pinned[i])
 	var selection = player_names.find(selection_id)
 	if selection < player_option.item_count:
 		player_option.select(selection)
 	else:
 		player_option.select(-1)
+	player_option.sort_options()
+
+func refresh_player_options(player_names, pinned):
+	player_option.clear(false)
+	for i in player_names.size():
+		player_option.add_item(player_names[i], pinned[i])
+	player_option.sort_options()
+
+func expand():
+	modulate.a = 0.0
+	create_tween().tween_property(self, "modulate:a", 1.0, TWEEN_DURATION)

@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bt4v0q31h0w7t"]
+
+[ext_resource type="FontFile" uid="uid://24cjgg1wl2s4" path="res://resources/fonts/figtree_bold.ttf" id="1_xux7d"]
+
+[resource]
+base_font = ExtResource("1_xux7d")
