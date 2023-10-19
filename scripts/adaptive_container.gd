@@ -14,8 +14,7 @@ func _process(_delta):
 	pass
 
 func _on_resized():
-	var window_size = DisplayServer.window_get_size()
-	if window_size.y * 1.2 >= window_size.x && vertical == false:
+	if parent.size.y * ratio >= parent.size.x && vertical == false:
 		vertical = true
-	elif window_size.y * 1.2 < window_size.x && vertical == true:
+	elif parent.size.y * ratio < parent.size.x && vertical == true:
 		vertical = false

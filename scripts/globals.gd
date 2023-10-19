@@ -1,23 +1,46 @@
 extends Node
 
 const SESSION_DATA_PATH := "user://session_data/"
+# Only used by Properties Panel. Todo: Migrate to global player data path
+const PLAYER_DATA_PATH := "user://session_data/"
 var CURRENT_SESSION_PATH := ""
-var current_session_name := "session"
-var current_session_display_name := "Session"
+var current_session_name := ""
+var current_session_display_name := ""
 
-var session_scene = preload("res://scenes/session.tscn")
+var session_scene = preload("res://scenes/editor_panel.tscn")
+
+var names = {}
+var scores = {}
+var global_scores = {}
+var matches = {}
+var tally_function
+
+func setup_data_directories():
+	var dir = DirAccess.open(SESSION_DATA_PATH)
+	if not dir:
+		DirAccess.make_dir_absolute(SESSION_DATA_PATH)
 
 func load_session(session_name):
 	current_session_name = session_name
 	CURRENT_SESSION_PATH = SESSION_DATA_PATH + current_session_name + "/"
 	get_tree().change_scene_to_packed(session_scene)
 
+func switch_session(session_name):
+	current_session_name = session_name
+	CURRENT_SESSION_PATH = SESSION_DATA_PATH + current_session_name + "/"
+#	get_tree().change_scene_to_packed(session_scene)
+
+func clear_session():
+	CURRENT_SESSION_PATH = ""
+	current_session_name = ""
+	current_session_display_name = ""
+
 func create_session(session_name, session_display_name):
 	current_session_name = session_name
 	current_session_display_name = session_display_name
 	CURRENT_SESSION_PATH = SESSION_DATA_PATH + current_session_name + "/"
 	save_session_data()
-	get_tree().change_scene_to_packed(session_scene)
+#	get_tree().change_scene_to_packed(session_scene)
 
 func save_session_data(custom_data = null, custom_name = null):
 	# custom_data requires a custom_name too
@@ -67,12 +90,29 @@ func load_session_data(session_name):
 			session_data = ResourceLoader.load(SESSION_DATA_PATH + session_name + "/session_data.tres")
 	return session_data
 
+func session_data_exists(session_name):
+	var exists = false
+	var dir = DirAccess.open(SESSION_DATA_PATH + session_name + "/")
+	if dir:
+		if dir.file_exists("session_data.tres"):
+			exists = true
+	return exists
+
 func list_match_data(session_name):
 	var saved_match_data = []
 	var dir = DirAccess.open(Globals.SESSION_DATA_PATH + session_name + "/match_data/")
 	if dir:
 		saved_match_data = dir.get_files()
 	return saved_match_data
+
+func load_match_data(index):
+	var match_data = null
+	var match_data_dir = Globals.CURRENT_SESSION_PATH + "/match_data/"
+	var dir = DirAccess.open(match_data_dir)
+	if dir:
+		if dir.file_exists("match_data_" + str(index) + ".tres"):
+			match_data = ResourceLoader.load(match_data_dir + "match_data_" + str(index) + ".tres")
+	return match_data
 
 # Deprecated after switching to global player data
 #func load_player_data(session_name):
@@ -87,6 +127,10 @@ func delete_session(session_name):
 	var dir = DirAccess.open(SESSION_DATA_PATH + session_name + "/")
 	if dir:
 		OS.move_to_trash(ProjectSettings.globalize_path(SESSION_DATA_PATH + session_name + "/"))
+
+func delete_all_sessions():
+	for session in list_session_folders():
+		delete_session(session)
 
 func move_session(session_name, offset):
 	var sessions = list_session_folders()

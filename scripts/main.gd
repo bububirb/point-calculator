@@ -1,167 +1,228 @@
 extends Control
 
-const MATCH_DATA_PATH = "user://match_data/"
-const PLAYER_DATA_PATH = "user://player_data/"
+signal player_data_updated
+signal match_data_updated
+signal selection_changed
 
-var tween_duration = 0.4
+@onready var file_menu = $VBoxContainer/MenuBar/File
+@onready var help_menu = $VBoxContainer/MenuBar/Help
 
-@onready var main_container = $MainContainer
-@onready var card_list = $MainContainer/CardList
-@onready var editor = $MainContainer/Editor
-@onready var new_button = $MainContainer/MenuBar/HBoxContainer/NewButton
-@onready var menu_bar = $MainContainer/MenuBar
-@onready var player_list = $MainContainer/PlayerList
-@onready var players_button = $MainContainer/MenuBar/HBoxContainer/PlayersButton
+@onready var about_popup = $AboutPopup
 
-@onready var menu_bar_height = menu_bar.size.y
+@onready var players = $VBoxContainer/HSplitContainer/HSplitContainer/LeftTabContainer/Players
+@onready var sessions = $VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer/Sessions
+@onready var editor = $VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer/Editor
+@onready var stats = $VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer/Stats
+@onready var properties = $VBoxContainer/HSplitContainer/RightTabContainer/Properties
+
+@onready var center_tab_container = $VBoxContainer/HSplitContainer/HSplitContainer/CenterTabContainer
+@onready var left_tab_container = $VBoxContainer/HSplitContainer/HSplitContainer/LeftTabContainer
+
+@onready var export_file_dialog = $ExportFileDialog
+@onready var import_file_dialog = $ImportFileDialog
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#print(hash(Time.get_datetime_dict_from_system()))
-	if OS.get_name() == "Windows":
-		#connect("resized", new_button.update_x_position)
-		pass
-	elif OS.get_name() == "Android":
-		resized.connect(_fit_display_cutouts)
-		_fit_display_cutouts()
-		#card_list.connect("scrolling", _on_card_list_scrolling)
+	file_menu.connect("id_pressed", _on_file_menu_id_pressed)
+	help_menu.connect("id_pressed", _on_help_menu_id_pressed)
+	sessions.connect("session_opened", _on_sessions_session_opened)
+	sessions.connect("item_selected", _on_sessions_item_selected)
+	sessions.connect("session_deleted", _on_sessions_session_deleted)
+	_connect_editor_signals(editor)
+	players.connect("save", _on_players_save)
+	players.connect("player_selected", _on_players_player_selected)
+	connect("player_data_updated", players._on_player_data_updated)
+	stats.connect("save", _on_stats_save)
+	stats.connect("player_selected", _on_stats_player_selected)
+	connect("player_data_updated", stats._on_player_data_updated)
+	connect("match_data_updated", stats._on_match_data_updated)
+	connect("selection_changed", properties._on_selection_changed)
+	properties.connect("session_opened", _on_properties_session_opened)
+	properties.connect("match_edit", _on_properties_match_edit)
+#	center_tab_container.connect("tab_changed", _on_center_tab_container_tab_changed)
 	
-	new_button.connect("pressed", _on_new_button_pressed)
-	players_button.connect("pressed", _on_players_button_pressed)
-	
-	card_list.connect("card_edit", _on_card_list_card_edit)
-	card_list.connect("card_delete", _on_card_list_card_delete)
-	editor.connect("cancel", _on_editor_cancel)
-	editor.connect("save", _on_editor_save)
-	player_list.connect("cancel", _on_player_list_cancel)
-	player_list.connect("save", _on_player_list_save)
-	
-	load_match_data()
+	export_file_dialog.connect("file_selected", _on_export_file_dialog_file_selected)
+	import_file_dialog.connect("file_selected", _on_import_file_dialog_file_selected)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
-func _fit_display_cutouts():
-	main_container.set_position(DisplayServer.get_display_safe_area().position)
-	main_container.set_size(DisplayServer.get_display_safe_area().size)
-#	new_button.update_x_position()
+func _on_file_menu_id_pressed(id):
+	match id:
+		0:
+			import_file_dialog.show()
+		1:
+			export_file_dialog.show()
+		2:
+			OS.shell_show_in_file_manager(ProjectSettings.globalize_path(Globals.SESSION_DATA_PATH))
+		4:
+			get_tree().quit()
 
-# Not necessary on Desktop
-#func _on_card_list_scrolling(scroll_offset):
-#	if scroll_offset == 0:
-#		new_button.expand_button()
-#	else:
-#		new_button.contract_button()
+func _on_help_menu_id_pressed(id):
+	match id:
+		0:
+			about_popup.show()
 
-func _on_card_list_card_edit(index):
-	open_editor()
-	set_edit_index(index)
-	editor.load_match_data()
-	editor.load_player_data()
+func _on_sessions_session_opened(session_name):
+	open_session(session_name)
 
-func _on_card_list_card_delete(index):
-	var saved_match_data = list_match_data()
-	if saved_match_data:
-		var dir = DirAccess.open(MATCH_DATA_PATH)
-		dir.remove(MATCH_DATA_PATH + saved_match_data[index])
-		reorder_match_data()
+func _on_properties_session_opened(session_name):
+	open_session(session_name)
 
-func set_edit_index(index):
-	editor.edit_index = index
+func _on_properties_match_edit(index):
+	if not editor.match_editor_is_open:
+		editor.edit_match(index)
 
-func _on_editor_cancel():
-	var dir = DirAccess.open(MATCH_DATA_PATH)
-	if not dir.file_exists("match_data_" + str(editor.edit_index) + ".tres"):
-		card_list.delete_card(editor.edit_index)
-	close_editor()
+func _on_editor_back_pressed():
+	center_tab_container.current_tab = 0
 
-func _on_editor_save(edit_index, winning_scores, losing_scores, quota, winning_weights, losing_weights, winning_player_ids, losing_player_ids):
-	card_list.set_card_scores(edit_index, winning_scores, losing_scores)
-	var match_data = MatchData.new()
-	match_data.quota = quota
-	match_data.winning_weights = winning_weights
-	match_data.losing_weights = losing_weights
-	match_data.winning_scores = winning_scores
-	match_data.losing_scores = losing_scores
-	match_data.winning_player_ids = winning_player_ids
-	match_data.losing_player_ids = losing_player_ids
-	var dir = DirAccess.open(MATCH_DATA_PATH)
-	if not dir:
-		DirAccess.open("user://").make_dir("match_data")
-	ResourceSaver.save(match_data, MATCH_DATA_PATH + "match_data_" + str(edit_index) + ".tres")
-	close_editor()
+func _on_editor_match_data_saved():
+	emit_signal("match_data_updated", editor)
 
-func _on_player_list_cancel():
-	# Discard if not needed
-	#var dir = DirAccess.open(PLAYER_DATA_PATH)
-	#if not dir.file_exists("player_list.tres"):
-	#	card_list.delete_card(editor.edit_index)
-	close_player_list()
-
-func _on_player_list_save(names, scores):
-	var player_data = PlayerData.new()
-	player_data.names = names
-	player_data.scores = scores
-	var dir = DirAccess.open(PLAYER_DATA_PATH)
-	if not dir:
-		DirAccess.open("user://").make_dir("player_data")
-	ResourceSaver.save(player_data, PLAYER_DATA_PATH + "player_data.tres")
-	close_player_list()
-
-func open_editor():
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	tween.tween_property(editor, "size_flags_stretch_ratio", 1.0, tween_duration)
-	tween.tween_property(card_list, "size_flags_stretch_ratio", 0.0, tween_duration)
-	tween.tween_property(menu_bar, "custom_minimum_size:y", 0.0, tween_duration)
-	new_button.disabled = true
-#	new_button.hide_button()
-
-func close_editor():
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	tween.tween_property(editor, "size_flags_stretch_ratio", 0.0, tween_duration)
-	tween.tween_property(card_list, "size_flags_stretch_ratio", 1.0, tween_duration)
-	tween.tween_property(menu_bar, "custom_minimum_size:y", menu_bar_height, tween_duration)
-	new_button.disabled = false
-#	new_button.show_button()
-
-func open_player_list():
-	player_list.load_player_item_list()
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	tween.tween_property(player_list, "size_flags_stretch_ratio", 1.0, tween_duration)
-	tween.tween_property(card_list, "size_flags_stretch_ratio", 0.0, tween_duration)
-	tween.tween_property(menu_bar, "custom_minimum_size:y", 0.0, tween_duration)
-	players_button.disabled = true
-
-func close_player_list():
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	tween.tween_property(player_list, "size_flags_stretch_ratio", 0.0, tween_duration)
-	tween.tween_property(card_list, "size_flags_stretch_ratio", 1.0, tween_duration)
-	tween.tween_property(menu_bar, "custom_minimum_size:y", menu_bar_height, tween_duration)
-	players_button.disabled = false
-
-func list_match_data():
-	var saved_match_data = []
-	var dir = DirAccess.open(MATCH_DATA_PATH)
+func _on_players_save(player_data):
+	var dir = DirAccess.open(Globals.SESSION_DATA_PATH)
 	if dir:
-		saved_match_data = dir.get_files()
-	return saved_match_data
+		ResourceSaver.save(player_data, Globals.SESSION_DATA_PATH + "player_data.tres")
+	emit_signal("player_data_updated", players)
 
-func load_match_data():
-	for file in list_match_data():
-		var match_data = ResourceLoader.load(MATCH_DATA_PATH + file)
-		card_list.load_card(match_data)
+func _on_players_player_selected(ids):
+	emit_signal("selection_changed", "player", ids)
+	sessions.clear_selection()
+	editor.clear_selection()
+	stats.clear_selection()
 
-func _on_new_button_pressed():
-	card_list.add_card()
-	new_button.disabled = true
+func _on_sessions_item_selected(ids):
+	emit_signal("selection_changed", "session", ids)
+	players.clear_selection()
+	stats.clear_selection()
 
-func _on_players_button_pressed():
-	open_player_list()
-	players_button.disabled = true
+func _on_sessions_session_deleted(session_name):
+	if session_name == editor.session_name:
+		clear_editor()
 
-func reorder_match_data():
-	var dir = DirAccess.open(MATCH_DATA_PATH)
-	var saved_match_data = list_match_data()
-	for i in saved_match_data.size():
-		dir.rename(saved_match_data[i], "match_data_" + str(i) + ".tres")
+func _on_editor_item_selected(ids):
+	emit_signal("selection_changed", "match", ids)
+	sessions.clear_selection()
+	players.clear_selection()
+	stats.clear_selection()
+
+func _on_stats_player_selected(ids):
+	emit_signal("selection_changed", "player", ids)
+	sessions.clear_selection()
+	editor.clear_selection()
+	players.clear_selection()
+
+func _on_stats_save(player_data):
+	var dir = DirAccess.open(Globals.SESSION_DATA_PATH)
+	if dir:
+		ResourceSaver.save(player_data, Globals.SESSION_DATA_PATH + "player_data.tres")
+	# Enable when Stats Panel changes require updating other panels
+#	emit_signal("player_data_updated", stats)
+
+#func _on_center_tab_container_tab_changed(tab):
+#	if tab == 2:
+#		left_tab_container.hide()
+#	else:
+#		left_tab_container.show()
+
+func _on_export_file_dialog_file_selected(path):
+	pack_data(path)
+
+func _on_import_file_dialog_file_selected(path):
+	extract_data(path)
+
+func _connect_editor_signals(editor_node):
+	editor_node.connect("back_pressed", _on_editor_back_pressed)
+	editor_node.connect("match_data_saved", _on_editor_match_data_saved)
+	editor_node.connect("item_selected", _on_editor_item_selected)
+	connect("player_data_updated", editor_node._on_player_data_updated)
+
+func instantiate_editor():
+	var editor_node = Globals.session_scene.instantiate()
+	center_tab_container.add_child(editor_node)
+	_connect_editor_signals(editor_node)
+	return editor_node
+
+func open_session(session_name):
+	Globals.switch_session(session_name)
+	center_tab_container.remove_child(editor)
+	editor.queue_free()
+	editor = instantiate_editor()
+	center_tab_container.move_child(editor, 1)
+	center_tab_container.current_tab = 1
+
+func clear_editor():
+	Globals.clear_session()
+	center_tab_container.remove_child(editor)
+	editor.queue_free()
+	editor = instantiate_editor()
+	center_tab_container.move_child(editor, 1)
+
+func load_as_text(path):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var content = file.get_as_text()
+	return content
+
+func save_as_text(path, content):
+	var err
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if not file:
+		err = FileAccess.get_open_error()
+		if err == 7:
+			DirAccess.make_dir_recursive_absolute(path.get_base_dir())
+			file = FileAccess.open(path, FileAccess.WRITE)
+			if not file:
+				return FileAccess.get_open_error()
+		else:
+			return FileAccess.get_open_error()
+	file.store_string(content.get_string_from_utf8())
+
+func pack_data(path):
+	var writer := ZIPPacker.new()
+	var err := writer.open(path)
+	if err != OK:
+		return err
+	writer.start_file("session_data/player_data.tres")
+	var dir = DirAccess.open(Globals.PLAYER_DATA_PATH)
+	if not dir:
+		dir = DirAccess.open(Globals.SESSION_DATA_PATH)
+	var player_data
+	if dir.file_exists("player_data.tres"):
+		player_data = load_as_text(Globals.PLAYER_DATA_PATH + "player_data.tres")
+	else:
+		player_data = load_as_text("res://resources/player_data/default_player_data.tres")
+	writer.write_file(player_data.to_utf8_buffer())
+	writer.close_file()
+	
+	for folder in Globals.list_session_folders():
+		if Globals.session_data_exists(folder):
+			writer.start_file("session_data/" + folder + "/session_data.tres")
+			var session_data = load_as_text(Globals.SESSION_DATA_PATH + folder + "/session_data.tres")
+			writer.write_file(session_data.to_utf8_buffer())
+			writer.close_file()
+			for file in Globals.list_match_data(folder):
+				writer.start_file("session_data/" + folder + "/match_data/" + file)
+				var match_data = load_as_text(Globals.SESSION_DATA_PATH + folder + "/match_data/" + file)
+				writer.write_file(match_data.to_utf8_buffer())
+	
+	writer.close()
+	return OK
+
+func extract_data(path):
+	var reader := ZIPReader.new()
+	var err := reader.open(path)
+	if err != OK:
+		return PackedByteArray()
+	Globals.delete_all_sessions()
+	for file in reader.get_files():
+		if ("user://" + file).get_file():
+			var res := reader.read_file(file)
+			save_as_text("user://" + file, res)
+	reader.close()
+	refresh_panels()
+
+func refresh_panels():
+	sessions.refresh_session_cards()
+	emit_signal("player_data_updated")
+	emit_signal("match_data_updated")
