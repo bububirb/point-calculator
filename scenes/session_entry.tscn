@@ -1,0 +1,117 @@
+[gd_scene load_steps=12 format=3 uid="uid://cidwd1ykytva"]
+
+[ext_resource type="Script" path="res://scripts/session_entry.gd" id="1_5h4qi"]
+[ext_resource type="StyleBox" uid="uid://l3nucxgb3c0a" path="res://resources/styles/entry_normal.tres" id="1_mta5s"]
+[ext_resource type="StyleBox" uid="uid://c75qfiouf23bw" path="res://resources/styles/entry_hover.tres" id="2_46agr"]
+[ext_resource type="Texture2D" uid="uid://dnjgqvda0meok" path="res://assets/icons/players_small.svg" id="2_bv1u6"]
+[ext_resource type="StyleBox" uid="uid://d2que5k8inqpx" path="res://resources/styles/entry_pressed.tres" id="3_kbqnc"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="3_rtgix"]
+[ext_resource type="Texture2D" uid="uid://1rb8b2qgcr1t" path="res://assets/icons/up_small.svg" id="4_4sy67"]
+[ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down_small.svg" id="5_fdwju"]
+[ext_resource type="Texture2D" uid="uid://cj1sy2rqm7ik5" path="res://assets/icons/open.svg" id="6_bg2ch"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17bx6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.0901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_axffq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[node name="SessionEntry" type="Button"]
+custom_minimum_size = Vector2(0, 32)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/normal = ExtResource("1_mta5s")
+theme_override_styles/hover = ExtResource("2_46agr")
+theme_override_styles/pressed = ExtResource("3_kbqnc")
+script = ExtResource("1_5h4qi")
+
+[node name="SelectionDraw" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_17bx6")
+
+[node name="SessionOptions" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SessionOptions"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="SessionOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Session"
+vertical_alignment = 1
+
+[node name="DateLabel" type="Label" parent="SessionOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "1/7/2023"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="SessionOptions"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_bv1u6")
+stretch_mode = 3
+
+[node name="PlayerCountLabel" type="Label" parent="SessionOptions"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "10"
+vertical_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="SessionOptions"]
+visible = false
+layout_mode = 2
+tooltip_text = "Move to Trash"
+icon = ExtResource("3_rtgix")
+
+[node name="MoveUpButton" type="Button" parent="SessionOptions"]
+visible = false
+layout_mode = 2
+tooltip_text = "Move Up
+Moves the session up the Tally Stack"
+icon = ExtResource("4_4sy67")
+
+[node name="MoveDownButton" type="Button" parent="SessionOptions"]
+visible = false
+layout_mode = 2
+tooltip_text = "Move Down
+Moves the session down the Tally Stack"
+icon = ExtResource("5_fdwju")
+
+[node name="OpenButton" type="Button" parent="SessionOptions"]
+layout_mode = 2
+tooltip_text = "Open Session"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_axffq")
+icon = ExtResource("6_bg2ch")

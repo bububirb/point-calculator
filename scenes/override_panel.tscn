@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://xb36j1n1p3wm"]
 
 [ext_resource type="Script" path="res://scripts/override_panel.gd" id="1_sbgso"]
-[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new_small.svg" id="3_v11wo"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new.svg" id="3_v11wo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjmfp"]
 content_margin_left = 8.0

@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=3 uid="uid://bkjncy4ae46ty"]
+
+[ext_resource type="Script" path="res://scripts/players_panel.gd" id="1_405ar"]
+[ext_resource type="Texture2D" uid="uid://ieyk52a6wdua" path="res://assets/icons/new.svg" id="2_to7ju"]
+[ext_resource type="Texture2D" uid="uid://bb3q27daqx1e2" path="res://assets/icons/pin.svg" id="3_jslfv"]
+[ext_resource type="Texture2D" uid="uid://b2nf2be13bc06" path="res://assets/icons/search_small.svg" id="4_hih5t"]
+[ext_resource type="Texture2D" uid="uid://bolr1inj0aku1" path="res://assets/icons/sort.svg" id="5_0xuow"]
+[ext_resource type="PackedScene" uid="uid://dhp1adm7e5rtp" path="res://scenes/player_item_list.tscn" id="7_kp4r4"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete.svg" id="7_us3gm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aetdf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwbfi"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.07, 0.07, 0.07, 0.8)
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+expand_margin_right = 34.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16hyg"]
+bg_color = Color(1, 1, 1, 0.74902)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.6, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+expand_margin_right = 34.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mn8vt"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+expand_margin_right = 34.0
+
+[node name="PlayersPanel" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_405ar")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_aetdf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerControls" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="AddInput" type="LineEdit" parent="Panel/VBoxContainer/PlayerControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_mwbfi")
+theme_override_styles/focus = SubResource("StyleBoxFlat_16hyg")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_mn8vt")
+placeholder_text = "Add"
+
+[node name="AddButton" type="Button" parent="Panel/VBoxContainer/PlayerControls"]
+layout_mode = 2
+tooltip_text = "Add New Player"
+theme_type_variation = &"ToolbarButton"
+icon = ExtResource("2_to7ju")
+
+[node name="PinButton" type="Button" parent="Panel/VBoxContainer/PlayerControls"]
+layout_mode = 2
+tooltip_text = "Pin Selected Player"
+theme_type_variation = &"ToolbarButton"
+icon = ExtResource("3_jslfv")
+
+[node name="PlayerListControls" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="FilterInput" type="LineEdit" parent="Panel/VBoxContainer/PlayerListControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Filter Players"
+clear_button_enabled = true
+right_icon = ExtResource("4_hih5t")
+
+[node name="SortButton" type="Button" parent="Panel/VBoxContainer/PlayerListControls"]
+layout_mode = 2
+tooltip_text = "Reverse Sorting Order"
+theme_type_variation = &"ToolbarButton"
+icon = ExtResource("5_0xuow")
+
+[node name="PlayerItemList" parent="Panel/VBoxContainer" instance=ExtResource("7_kp4r4")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomPlayerControls" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RemoveButton" type="Button" parent="Panel/VBoxContainer/BottomPlayerControls"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+tooltip_text = "Remove Selected Player"
+theme_type_variation = &"DangerButton"
+text = "Remove"
+icon = ExtResource("7_us3gm")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/BottomPlayerControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RemoveConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(219, 100)
+ok_button_text = "Remove"
+dialog_text = "Remove the selected player?"

@@ -1,16 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmflaglwg56tn"]
+[gd_scene load_steps=5 format=3 uid="uid://cmflaglwg56tn"]
 
+[ext_resource type="Texture2D" uid="uid://cjemw1wmjw35n" path="res://assets/icons/blank.svg" id="1_00vip"]
 [ext_resource type="Script" path="res://scripts/option.gd" id="1_pf6t1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i3xxt"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym6v7"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.4, 0.6, 1, 0.501961)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 5
 
 [node name="Option" type="Button"]
-custom_minimum_size = Vector2(0, 32)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_i3xxt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ym6v7")
 text = "Option 1"
+icon = ExtResource("1_00vip")
 alignment = 0
 script = ExtResource("1_pf6t1")

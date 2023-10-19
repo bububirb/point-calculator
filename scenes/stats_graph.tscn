@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3vos5s0k8kwk"]
+
+[ext_resource type="Script" path="res://scripts/stats_graph.gd" id="1_eqd0e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpk8m"]
+
+[node name="StatsGraph" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bpk8m")
+script = ExtResource("1_eqd0e")

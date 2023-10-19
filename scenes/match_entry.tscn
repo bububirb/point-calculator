@@ -1,0 +1,320 @@
+[gd_scene load_steps=13 format=3 uid="uid://buyrle7db1fmq"]
+
+[ext_resource type="Script" path="res://scripts/match_entry.gd" id="1_bn34q"]
+[ext_resource type="FontVariation" uid="uid://bt4v0q31h0w7t" path="res://resources/fonts/default_bold.tres" id="3_pppw6"]
+[ext_resource type="Texture2D" uid="uid://bgtxq04v850vy" path="res://assets/icons/edit_big.svg" id="5_laso8"]
+[ext_resource type="Texture2D" uid="uid://c1a8xvib3efu0" path="res://assets/icons/duplicate_big.svg" id="8_xqab0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dw5r7"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_akhu1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp06i"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.6)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwoac"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.6)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258824, 0.258824, 0.258824, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ip2uh"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.14, 0.14, 0.14, 0.6)
+border_color = Color(1, 1, 1, 0.129412)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy7em"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 0.6)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258824, 0.258824, 0.258824, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdrs6"]
+bg_color = Color(0.15, 0.15, 0.15, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.3, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q8tdk"]
+
+[node name="MatchEntry" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+script = ExtResource("1_bn34q")
+
+[node name="IndexLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.9)
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dw5r7")
+text = "1"
+horizontal_alignment = 2
+
+[node name="EntryButton" type="Button" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_akhu1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hp06i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dwoac")
+
+[node name="Panel" type="Panel" parent="EntryButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ip2uh")
+
+[node name="SelectionDraw" type="Panel" parent="EntryButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qy7em")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EntryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scores" type="VBoxContainer" parent="EntryButton/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="EntryButton/HBoxContainer/Scores"]
+self_modulate = Color(0.4, 1, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdrs6")
+
+[node name="WinningScoreLabels" type="HBoxContainer" parent="EntryButton/HBoxContainer/Scores/Panel"]
+modulate = Color(1, 1, 1, 0.901961)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label1" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel/WinningScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="EntryButton/HBoxContainer/Scores"]
+self_modulate = Color(1, 0.4, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdrs6")
+
+[node name="LosingScoreLabels" type="HBoxContainer" parent="EntryButton/HBoxContainer/Scores/Panel2"]
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label1" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="EntryButton/HBoxContainer/Scores/Panel2/LosingScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("3_pppw6")
+theme_override_font_sizes/font_size = 20
+text = "-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VFlowContainer" type="VFlowContainer" parent="EntryButton/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.9)
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="EntryButton/HBoxContainer/VFlowContainer"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Edit Match"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q8tdk")
+icon = ExtResource("5_laso8")
+icon_alignment = 1
+
+[node name="DuplicateButton" type="Button" parent="EntryButton/HBoxContainer/VFlowContainer"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Duplicate Match"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q8tdk")
+icon = ExtResource("8_xqab0")
+icon_alignment = 1

@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://sclvjd4qi5hp"]
+
+[ext_resource type="Script" path="res://scripts/attribute_entry.gd" id="1_s16ea"]
+[ext_resource type="StyleBox" uid="uid://l3nucxgb3c0a" path="res://resources/styles/entry_normal.tres" id="1_wgaln"]
+[ext_resource type="StyleBox" uid="uid://c75qfiouf23bw" path="res://resources/styles/entry_hover.tres" id="2_ar5ey"]
+[ext_resource type="StyleBox" uid="uid://d2que5k8inqpx" path="res://resources/styles/entry_pressed.tres" id="3_4yaw2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th2br"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.0901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[node name="AttributeEntry" type="Button"]
+custom_minimum_size = Vector2(0, 32)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/normal = ExtResource("1_wgaln")
+theme_override_styles/hover = ExtResource("2_ar5ey")
+theme_override_styles/pressed = ExtResource("3_4yaw2")
+script = ExtResource("1_s16ea")
+
+[node name="SelectionDraw" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_th2br")
+
+[node name="Labels" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="IndentMargin" type="MarginContainer" parent="Labels"]
+layout_mode = 2
+
+[node name="KeyLabel" type="Label" parent="Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Key"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="ValueLabel" type="Label" parent="Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Value"
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3

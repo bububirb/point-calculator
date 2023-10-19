@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://dyna0h7wa5ryw"]
+
+[ext_resource type="Script" path="res://scripts/stats_panel.gd" id="1_u0qlv"]
+[ext_resource type="Texture2D" uid="uid://b2nf2be13bc06" path="res://assets/icons/search_small.svg" id="2_eg506"]
+[ext_resource type="Texture2D" uid="uid://dvyu6msj3sgb1" path="res://assets/icons/graph.svg" id="2_eusae"]
+[ext_resource type="StyleBox" uid="uid://ixt5lyof837o" path="res://resources/styles/background_panel.tres" id="2_q0iig"]
+[ext_resource type="Texture2D" uid="uid://djeetpmjnhusy" path="res://assets/icons/menu.svg" id="2_vged7"]
+[ext_resource type="PackedScene" uid="uid://boxvwye0a2d4a" path="res://scenes/player_stats_item_list.tscn" id="4_mlvfe"]
+[ext_resource type="Script" path="res://scripts/adaptive_container.gd" id="6_3qscr"]
+[ext_resource type="PackedScene" uid="uid://c3vos5s0k8kwk" path="res://scenes/stats_graph.tscn" id="8_8obwd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5x17"]
+
+[node name="Stats" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u0qlv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="FilterInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Filter Players"
+clear_button_enabled = true
+right_icon = ExtResource("2_eg506")
+
+[node name="StatsGraphButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Show Graph"
+theme_type_variation = &"ToolbarButton"
+toggle_mode = true
+button_pressed = true
+icon = ExtResource("2_eusae")
+
+[node name="AdvancedOptionsButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Show Advanced Options"
+theme_type_variation = &"ToolbarButton"
+toggle_mode = true
+icon = ExtResource("2_vged7")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="AdvancedOptions" type="Control" parent="VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="TallyOptionsContainer" type="HBoxContainer" parent="VBoxContainer/AdvancedOptions"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 22.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AdvancedOptions/TallyOptionsContainer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="TallyOptionLabel" type="Label" parent="VBoxContainer/AdvancedOptions/TallyOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Tally Method:"
+vertical_alignment = 1
+
+[node name="TallyOptionButton" type="OptionButton" parent="VBoxContainer/AdvancedOptions/TallyOptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Tally Method
+Method to use for tallying scores"
+
+[node name="AdaptiveContainer" type="BoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+vertical = true
+script = ExtResource("6_3qscr")
+ratio = 2.0
+
+[node name="PlayerStatsItemList" parent="VBoxContainer/AdaptiveContainer" instance=ExtResource("4_mlvfe")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StatsGraphContainer" type="PanelContainer" parent="VBoxContainer/AdaptiveContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("2_q0iig")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/AdaptiveContainer/StatsGraphContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k5x17")
+
+[node name="StatsGraph" parent="VBoxContainer/AdaptiveContainer/StatsGraphContainer/ScrollContainer" instance=ExtResource("8_8obwd")]
+layout_mode = 2
+size_flags_horizontal = 3

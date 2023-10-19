@@ -1,20 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhp1adm7e5rtp"]
+[gd_scene load_steps=8 format=3 uid="uid://dhp1adm7e5rtp"]
 
 [ext_resource type="Script" path="res://scripts/player_item_list.gd" id="1_4yilk"]
-[ext_resource type="FontFile" uid="uid://b7c8c5oithayr" path="res://resources/fonts/product_sans_bold.ttf" id="2_q0wgs"]
-[ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down_small.svg" id="3_tq2wr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0eprw"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-corner_detail = 5
+[ext_resource type="StyleBox" uid="uid://ixt5lyof837o" path="res://resources/styles/background_panel.tres" id="1_u6pd5"]
+[ext_resource type="FontVariation" uid="uid://bt4v0q31h0w7t" path="res://resources/fonts/default_bold.tres" id="3_nm0xm"]
+[ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down.svg" id="3_tq2wr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba5xe"]
 
@@ -22,29 +11,24 @@ corner_detail = 5
 color = Color(1, 1, 1, 0.4)
 thickness = 2
 
-[node name="PlayerItemList" type="Panel"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s5yq2"]
+content_margin_right = 4.0
+
+[node name="PlayerItemList" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0eprw")
+theme_override_styles/panel = ExtResource("1_u6pd5")
 script = ExtResource("1_4yilk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Panel" type="Panel" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ba5xe")
@@ -63,145 +47,27 @@ theme_override_constants/separation = 0
 [node name="PlayerNameSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_q0wgs")
+theme_override_fonts/font = ExtResource("3_nm0xm")
 text = "Name"
 flat = true
 alignment = 0
 icon_alignment = 2
 
 [node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/PlayerNameSortButton"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -32.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("3_tq2wr")
-stretch_mode = 3
-
-[node name="MatchesSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Matches"
-flat = true
-alignment = 0
-icon_alignment = 2
-
-[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/MatchesSortButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("3_tq2wr")
-stretch_mode = 3
-
-[node name="WinsSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Wins"
-flat = true
-alignment = 0
-icon_alignment = 2
-
-[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/WinsSortButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("3_tq2wr")
-stretch_mode = 3
-
-[node name="LossesSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Losses"
-flat = true
-alignment = 0
-icon_alignment = 2
-
-[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/LossesSortButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("3_tq2wr")
-stretch_mode = 3
-
-[node name="LocalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Local Score"
-flat = true
-alignment = 0
-icon_alignment = 2
-
-[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/LocalScoreSortButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("3_tq2wr")
-stretch_mode = 3
-
-[node name="GlobalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_q0wgs")
-text = "Score"
-flat = true
-alignment = 0
-icon_alignment = 2
-
-[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/GlobalScoreSortButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_right = -8.0
+offset_left = -24.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("3_tq2wr")
 stretch_mode = 3
 
 [node name="Panel2" type="Panel" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxLine_vmobh")
@@ -209,6 +75,7 @@ theme_override_styles/panel = SubResource("StyleBoxLine_vmobh")
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_s5yq2")
 vertical_scroll_mode = 2
 
 [node name="PlayerEntryContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
@@ -217,8 +84,3 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [connection signal="pressed" from="VBoxContainer/Panel/Labels/PlayerNameSortButton" to="." method="_on_sort_button_pressed" binds= ["player_name"]]
-[connection signal="pressed" from="VBoxContainer/Panel/Labels/MatchesSortButton" to="." method="_on_sort_button_pressed" binds= ["matches"]]
-[connection signal="pressed" from="VBoxContainer/Panel/Labels/WinsSortButton" to="." method="_on_sort_button_pressed" binds= ["wins"]]
-[connection signal="pressed" from="VBoxContainer/Panel/Labels/LossesSortButton" to="." method="_on_sort_button_pressed" binds= ["losses"]]
-[connection signal="pressed" from="VBoxContainer/Panel/Labels/LocalScoreSortButton" to="." method="_on_sort_button_pressed" binds= ["local_score"]]
-[connection signal="pressed" from="VBoxContainer/Panel/Labels/GlobalScoreSortButton" to="." method="_on_sort_button_pressed" binds= ["global_score"]]

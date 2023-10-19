@@ -1,0 +1,209 @@
+[gd_scene load_steps=8 format=3 uid="uid://boxvwye0a2d4a"]
+
+[ext_resource type="StyleBox" uid="uid://ixt5lyof837o" path="res://resources/styles/background_panel.tres" id="1_cjobp"]
+[ext_resource type="Script" path="res://scripts/player_stats_item_list.gd" id="2_xetal"]
+[ext_resource type="FontVariation" uid="uid://bt4v0q31h0w7t" path="res://resources/fonts/default-bold.tres" id="3_6se41"]
+[ext_resource type="Texture2D" uid="uid://b06jolkd8pju8" path="res://assets/icons/down.svg" id="4_3kow1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba5xe"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vmobh"]
+color = Color(1, 1, 1, 0.4)
+thickness = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vvblt"]
+content_margin_right = 4.0
+
+[node name="PlayerStatsItemList" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_cjobp")
+script = ExtResource("2_xetal")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ba5xe")
+
+[node name="Labels" type="HBoxContainer" parent="VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerNameSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+theme_override_fonts/font = ExtResource("3_6se41")
+text = "Name"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/PlayerNameSortButton"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_3kow1")
+stretch_mode = 3
+
+[node name="MatchesSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_6se41")
+text = "Matches"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/MatchesSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_3kow1")
+stretch_mode = 3
+
+[node name="WinsSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_6se41")
+text = "Wins"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/WinsSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_3kow1")
+stretch_mode = 3
+
+[node name="LossesSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_6se41")
+text = "Losses"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/LossesSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_3kow1")
+stretch_mode = 3
+
+[node name="LocalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_6se41")
+text = "Local Score"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/LocalScoreSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_3kow1")
+stretch_mode = 3
+
+[node name="GlobalScoreSortButton" type="Button" parent="VBoxContainer/Panel/Labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_6se41")
+text = "Score"
+flat = true
+alignment = 0
+icon_alignment = 2
+
+[node name="Arrow" type="TextureRect" parent="VBoxContainer/Panel/Labels/GlobalScoreSortButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_3kow1")
+stretch_mode = 3
+
+[node name="Panel2" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_vmobh")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vvblt")
+vertical_scroll_mode = 2
+
+[node name="PlayerEntryContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/PlayerNameSortButton" to="." method="_on_sort_button_pressed" binds= ["player_name"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/MatchesSortButton" to="." method="_on_sort_button_pressed" binds= ["matches"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/WinsSortButton" to="." method="_on_sort_button_pressed" binds= ["wins"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/LossesSortButton" to="." method="_on_sort_button_pressed" binds= ["losses"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/LocalScoreSortButton" to="." method="_on_sort_button_pressed" binds= ["local_score"]]
+[connection signal="pressed" from="VBoxContainer/Panel/Labels/GlobalScoreSortButton" to="." method="_on_sort_button_pressed" binds= ["global_score"]]

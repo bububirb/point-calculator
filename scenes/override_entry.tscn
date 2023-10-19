@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://r62ba0facss3"]
+[gd_scene load_steps=7 format=3 uid="uid://r62ba0facss3"]
 
 [ext_resource type="PackedScene" uid="uid://18k6amslyk1v" path="res://scenes/filtered_option_button.tscn" id="1_58bcl"]
 [ext_resource type="Script" path="res://scripts/override_entry.gd" id="1_s8dyf"]
-[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete_small.svg" id="3_fc21e"]
+[ext_resource type="Texture2D" uid="uid://ciqmrkxpojdn4" path="res://assets/icons/delete.svg" id="3_fc21e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8v86i"]
 content_margin_left = 4.0
@@ -40,12 +40,6 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 corner_detail = 5
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1u8ly"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-
 [node name="OverrideEntry" type="HBoxContainer"]
 offset_left = 4.0
 offset_top = 4.0
@@ -69,11 +63,13 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
-text = "0"
+placeholder_text = "0"
 
 [node name="RelativeCheckBox" type="CheckBox" parent="HBoxContainer"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
+tooltip_text = "Relative
+Override value is added to existing score, disable to set player score manually"
 button_pressed = true
 text = "Relative"
 flat = true
@@ -81,6 +77,6 @@ alignment = 1
 
 [node name="DeleteButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_1u8ly")
+tooltip_text = "Delete Override"
+theme_type_variation = &"ToolbarButton"
 icon = ExtResource("3_fc21e")
-flat = true
