@@ -1,4 +1,4 @@
-# Point Calculator
+# Scorekeeper
 A score calculation program complementary to ranked systems
 
 # Features
