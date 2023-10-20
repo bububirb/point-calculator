@@ -21,6 +21,9 @@ signal selection_changed
 @onready var export_file_dialog = $ExportFileDialog
 @onready var import_file_dialog = $ImportFileDialog
 
+func _init():
+	Globals.setup_data_directories()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	file_menu.connect("id_pressed", _on_file_menu_id_pressed)
